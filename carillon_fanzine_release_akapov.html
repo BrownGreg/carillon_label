@@ -1,0 +1,165 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Special+Elite&display=swap');
+  .fz-wrap { font-family: 'Special Elite', monospace; background: #ebe5d4; color: #0a0a0a; border-radius: 12px; overflow: hidden; position: relative; }
+  .fz-noise::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:0.4; background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode: multiply; z-index: 0; }
+  .fz-strip { background: #0a0a0a; color: #ebe5d4; padding: 6px 16px; display: flex; justify-content: space-between; font-family: 'Special Elite', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .fz-nav { padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #0a0a0a; }
+  .fz-back { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+  .fz-logo { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 3px; }
+  .fz-flyer { padding: 32px 24px; border-bottom: 4px solid #0a0a0a; background: #ebe5d4; position: relative; overflow: hidden; }
+  .fz-flyer-kicker { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 4px; text-transform: uppercase; color: #c41e1e; margin-bottom: 8px; }
+  .fz-flyer-coming { display: inline-block; background: #0a0a0a; color: #ebe5d4; padding: 3px 12px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .fz-flyer-band { font-family: 'Anton', sans-serif; font-size: 86px; letter-spacing: 6px; line-height: 0.9; color: #0a0a0a; margin-bottom: 4px; }
+  .fz-flyer-title { font-family: 'Anton', sans-serif; font-size: 140px; line-height: 0.82; letter-spacing: 1px; color: #0a0a0a; margin-bottom: 24px; }
+  .fz-flyer-title em { font-style: italic; }
+  .fz-flyer-highlight { background: #c41e1e; color: #ebe5d4; padding: 0 8px; display: inline-block; }
+  .fz-flyer-sub { font-family: 'Special Elite', monospace; font-size: 16px; line-height: 1.5; max-width: 60%; margin-bottom: 24px; }
+  .fz-flyer-date { display: flex; gap: 0; align-items: stretch; max-width: 360px; margin-bottom: 28px; }
+  .fz-date-block { background: #0a0a0a; color: #ebe5d4; padding: 12px 16px; flex: 1; text-align: center; border-right: 2px solid #c41e1e; }
+  .fz-date-block:last-child { border-right: none; }
+  .fz-date-val { font-family: 'Anton', sans-serif; font-size: 36px; line-height: 1; }
+  .fz-date-lbl { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; color: #c41e1e; }
+  .fz-flyer-stamp { position: absolute; right: 24px; top: 32px; transform: rotate(8deg); border: 4px double #c41e1e; padding: 16px 20px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #c41e1e; text-align: center; }
+  .fz-flyer-stamp-big { font-family: 'Anton', sans-serif; font-size: 36px; line-height: 1; letter-spacing: 0; margin-top: 4px; }
+  .fz-cover-row { display: grid; grid-template-columns: 1.2fr 1fr; border-bottom: 4px solid #0a0a0a; }
+  .fz-cover-art { background: #0a0a0a; min-height: 380px; position: relative; overflow: hidden; padding: 24px; display: flex; align-items: center; justify-content: center; }
+  .fz-halftone { position: absolute; inset: 0; background-image: radial-gradient(circle, #ebe5d4 1px, transparent 1.4px); background-size: 6px 6px; opacity: 0.12; }
+  .fz-cover-center { position: relative; z-index: 1; text-align: center; color: #ebe5d4; padding: 30px; border: 4px solid #ebe5d4; max-width: 80%; }
+  .fz-cover-center-band { font-family: 'Anton', sans-serif; font-size: 34px; letter-spacing: 8px; margin-bottom: 16px; }
+  .fz-cover-center-track { font-family: 'Anton', sans-serif; font-size: 38px; line-height: 1; letter-spacing: 1px; }
+  .fz-cover-center-track em { font-style: italic; color: #c41e1e; }
+  .fz-cover-center-rule { width: 60%; height: 4px; background: #c41e1e; margin: 16px auto; }
+  .fz-cover-center-date { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 6px; }
+  .fz-info-side { padding: 28px 24px; }
+  .fz-info-title { font-family: 'Anton', sans-serif; font-size: 38px; letter-spacing: 1px; margin-bottom: 18px; }
+  .fz-info-rows { font-family: 'Special Elite', monospace; }
+  .fz-info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 2px dashed #0a0a0a; font-size: 14px; }
+  .fz-info-row strong { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .fz-info-row span { font-weight: bold; }
+  .fz-presave { background: #c41e1e; color: #ebe5d4; padding: 18px; margin-top: 20px; text-align: center; cursor: pointer; }
+  .fz-presave-text { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 2px; }
+  .fz-presave-sub { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-top: 6px; }
+  .fz-lineup-section { padding: 28px 24px; border-bottom: 4px solid #0a0a0a; background: #0a0a0a; color: #ebe5d4; }
+  .fz-section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .fz-section-num { background: #ebe5d4; color: #0a0a0a; padding: 4px 12px; font-family: 'Anton', sans-serif; font-size: 22px; }
+  .fz-section-title { font-family: 'Anton', sans-serif; font-size: 32px; letter-spacing: 1px; flex: 1; }
+  .fz-section-rule { flex: 1; height: 4px; background: #ebe5d4; }
+  .fz-lineup-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .fz-member-card { background: #ebe5d4; color: #0a0a0a; padding: 16px; position: relative; }
+  .fz-member-card.tilt1 { transform: rotate(-1deg); }
+  .fz-member-card.tilt2 { transform: rotate(0.8deg); }
+  .fz-member-role { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c41e1e; margin-bottom: 8px; }
+  .fz-member-name { font-family: 'Anton', sans-serif; font-size: 36px; line-height: 1; letter-spacing: 1px; margin-bottom: 6px; }
+  .fz-member-note { font-family: 'Special Elite', monospace; font-size: 11px; line-height: 1.4; }
+  .fz-member-flag { display: inline-block; background: #0a0a0a; color: #ebe5d4; padding: 2px 6px; font-family: 'Oswald', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; font-weight: 700; }
+  .fz-platforms-section { padding: 24px; border-bottom: 4px solid #0a0a0a; }
+  .fz-platforms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .fz-platform { border: 3px solid #0a0a0a; padding: 16px; text-align: center; cursor: pointer; background: #ebe5d4; }
+  .fz-platform:hover { background: #0a0a0a; color: #ebe5d4; }
+  .fz-platform-name { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 2px; }
+  .fz-platform-arrow { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; margin-top: 4px; color: #c41e1e; }
+  .page-label { background: #c41e1e; padding: 8px 16px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; color: #ebe5d4; text-transform: uppercase; }
+  .red-dot { display: inline-block; width: 6px; height: 6px; background: #0a0a0a; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+</style>
+<h2 class="sr-only">Maquette Page Release fanzine — Akapov Flowers Wine and Candle</h2>
+<div class="fz-wrap fz-noise">
+  <div class="page-label"><span class="red-dot"></span>Page release — Akapov (fanzine)</div>
+
+  <div class="fz-strip">
+    <div>Carillon · Sortie · Akapov / FWAC</div>
+    <div>★ DROP : 19.06.2026 ★</div>
+  </div>
+
+  <nav class="fz-nav">
+    <div class="fz-back">← akapov</div>
+    <div class="fz-logo">CARILLON</div>
+    <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;">FR / EN</div>
+  </nav>
+
+  <div class="fz-flyer">
+    <div class="fz-flyer-kicker">▼ NEW SINGLE ▼</div>
+    <div class="fz-flyer-coming">★ Sortie imminente</div>
+    <div class="fz-flyer-band">AKAPOV</div>
+    <div class="fz-flyer-title">FLOWERS,<br>WINE <em>&</em><br><span class="fz-flyer-highlight">CANDLE</span></div>
+    <div class="fz-flyer-sub">Premier single. Quatre musiciens. Une promesse. <strong>Le 19 juin 2026, ça commence.</strong></div>
+    <div class="fz-flyer-date">
+      <div class="fz-date-block"><div class="fz-date-val">19</div><div class="fz-date-lbl">JOUR</div></div>
+      <div class="fz-date-block"><div class="fz-date-val">06</div><div class="fz-date-lbl">MOIS</div></div>
+      <div class="fz-date-block"><div class="fz-date-val">26</div><div class="fz-date-lbl">ANNÉE</div></div>
+    </div>
+    <div class="fz-flyer-stamp">À paraître<div class="fz-flyer-stamp-big">19/06</div></div>
+  </div>
+
+  <div class="fz-cover-row">
+    <div class="fz-cover-art">
+      <div class="fz-halftone"></div>
+      <div class="fz-cover-center">
+        <div class="fz-cover-center-band">AKAPOV</div>
+        <div class="fz-cover-center-rule"></div>
+        <div class="fz-cover-center-track">FLOWERS,<br>WINE AND<br><em>CANDLE</em></div>
+        <div class="fz-cover-center-rule"></div>
+        <div class="fz-cover-center-date">★ 19.06.26 ★</div>
+      </div>
+    </div>
+    <div class="fz-info-side">
+      <div class="fz-info-title">FICHE<br>TECHNIQUE</div>
+      <div class="fz-info-rows">
+        <div class="fz-info-row"><strong>Sortie</strong> <span>19/06/26</span></div>
+        <div class="fz-info-row"><strong>Format</strong> <span>Single / Digital</span></div>
+        <div class="fz-info-row"><strong>Genre</strong> <span>Metalcore</span></div>
+        <div class="fz-info-row"><strong>Label</strong> <span>Carillon</span></div>
+        <div class="fz-info-row" style="border:none;"><strong>N°</strong> <span>001 — Premier</span></div>
+      </div>
+      <div class="fz-presave">
+        <div class="fz-presave-text">→ PRESAVE</div>
+        <div class="fz-presave-sub">Reçois-le dès le drop</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fz-lineup-section">
+    <div class="fz-section-head">
+      <div class="fz-section-num">01</div>
+      <div class="fz-section-title">LE GANG</div>
+      <div class="fz-section-rule"></div>
+    </div>
+    <div class="fz-lineup-grid">
+      <div class="fz-member-card tilt1">
+        <div class="fz-member-role">▼ Chant</div>
+        <div class="fz-member-name">ARTHUR</div>
+        <div class="fz-member-note">Voix principale</div>
+      </div>
+      <div class="fz-member-card tilt2">
+        <div class="fz-member-role">▼ Basse</div>
+        <div class="fz-member-name">YANNIS</div>
+        <div class="fz-member-note">Chant d'Empreinte aussi</div>
+        <div class="fz-member-flag">2 groupes</div>
+      </div>
+      <div class="fz-member-card tilt1">
+        <div class="fz-member-role">▼ Batterie</div>
+        <div class="fz-member-name">TITOU</div>
+        <div class="fz-member-note">Rythmique</div>
+      </div>
+      <div class="fz-member-card tilt2">
+        <div class="fz-member-role">▼ Guitare</div>
+        <div class="fz-member-name">GRÉGORY</div>
+        <div class="fz-member-note">Compo + arrangements</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fz-platforms-section">
+    <div class="fz-section-head" style="margin-bottom:18px;">
+      <div class="fz-section-num" style="background:#0a0a0a;color:#ebe5d4;">02</div>
+      <div class="fz-section-title">★ ÉCOUTE BIENTÔT ★</div>
+      <div class="fz-section-rule" style="background:#0a0a0a;"></div>
+    </div>
+    <div class="fz-platforms-grid">
+      <div class="fz-platform"><div class="fz-platform-name">SPOTIFY</div><div class="fz-platform-arrow">→ LIEN</div></div>
+      <div class="fz-platform"><div class="fz-platform-name">APPLE</div><div class="fz-platform-arrow">→ LIEN</div></div>
+      <div class="fz-platform"><div class="fz-platform-name">BANDCAMP</div><div class="fz-platform-arrow">→ LIEN</div></div>
+      <div class="fz-platform"><div class="fz-platform-name">YOUTUBE</div><div class="fz-platform-arrow">→ LIEN</div></div>
+    </div>
+  </div>
+</div>

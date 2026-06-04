@@ -1,0 +1,168 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Special+Elite&display=swap');
+  .fz-wrap { font-family: 'Special Elite', monospace; background: #ebe5d4; color: #0a0a0a; border-radius: 12px; overflow: hidden; position: relative; }
+  .fz-noise::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:0.4; background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode: multiply; z-index: 0; }
+  .fz-strip { background: #0a0a0a; color: #ebe5d4; padding: 6px 16px; display: flex; justify-content: space-between; font-family: 'Special Elite', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .fz-nav { padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #0a0a0a; }
+  .fz-back { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+  .fz-logo { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 3px; }
+  .fz-cover { padding: 28px 24px 20px; border-bottom: 4px solid #0a0a0a; background: #ebe5d4; position: relative; overflow: hidden; }
+  .fz-cover-kicker { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #c41e1e; margin-bottom: 8px; }
+  .fz-cover-title { font-family: 'Anton', sans-serif; font-size: 130px; line-height: 0.85; letter-spacing: 2px; color: #0a0a0a; margin-bottom: 12px; }
+  .fz-cover-title em { font-style: italic; }
+  .fz-cover-sub { font-family: 'Special Elite', monospace; font-size: 16px; line-height: 1.4; max-width: 70%; }
+  .fz-cover-stamp { position: absolute; right: 24px; top: 28px; transform: rotate(8deg); border: 3px solid #0a0a0a; padding: 8px 14px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; background: #ebe5d4; }
+  .fz-cover-stamp.red { color: #c41e1e; border-color: #c41e1e; transform: rotate(-6deg); }
+  .fz-photo-strip { display: grid; grid-template-columns: 1.4fr 1fr; border-bottom: 4px solid #0a0a0a; }
+  .fz-big-photo { background: #0a0a0a; min-height: 320px; position: relative; overflow: hidden; padding: 20px; }
+  .fz-halftone { position: absolute; inset: 0; background-image: radial-gradient(circle, #ebe5d4 1px, transparent 1.4px); background-size: 6px 6px; opacity: 0.15; }
+  .fz-photo-mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Anton', sans-serif; font-size: 280px; color: #1f1f1f; line-height: 0.8; letter-spacing: -10px; }
+  .fz-photo-cap { position: absolute; bottom: 16px; left: 20px; background: #c41e1e; color: #ebe5d4; padding: 6px 12px; font-family: 'Special Elite', monospace; font-size: 11px; max-width: 320px; }
+  .fz-photo-tape { position: absolute; top: -8px; left: 60px; background: #ffe761; padding: 2px 14px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transform: rotate(-2deg); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+  .fz-id-card { padding: 28px 24px; background: #ebe5d4; border-left: 4px dashed #0a0a0a; }
+  .fz-id-title { font-family: 'Anton', sans-serif; font-size: 36px; letter-spacing: 1px; margin-bottom: 16px; }
+  .fz-id-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 2px dashed #0a0a0a; font-family: 'Special Elite', monospace; font-size: 13px; }
+  .fz-id-row strong { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .fz-id-row span { font-weight: bold; }
+  .fz-id-members { background: #0a0a0a; color: #ebe5d4; padding: 16px; margin-top: 16px; }
+  .fz-id-members-title { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c41e1e; margin-bottom: 12px; }
+  .fz-id-member { display: flex; justify-content: space-between; padding: 4px 0; font-family: 'Special Elite', monospace; font-size: 13px; }
+  .fz-interview { padding: 32px 24px; border-bottom: 4px solid #0a0a0a; position: relative; }
+  .fz-interview-head { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .fz-section-num { background: #0a0a0a; color: #ebe5d4; padding: 4px 12px; font-family: 'Anton', sans-serif; font-size: 22px; }
+  .fz-section-title { font-family: 'Anton', sans-serif; font-size: 32px; letter-spacing: 1px; flex: 1; }
+  .fz-section-rule { flex: 1; height: 4px; background: #0a0a0a; }
+  .fz-qa { margin-bottom: 24px; }
+  .fz-q { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; line-height: 1.3; }
+  .fz-q::before { content: 'C // '; color: #c41e1e; }
+  .fz-a { font-family: 'Special Elite', monospace; font-size: 15px; line-height: 1.6; padding-left: 20px; border-left: 4px solid #0a0a0a; }
+  .fz-a::before { content: '— '; color: #c41e1e; font-weight: bold; }
+  .fz-pullquote { background: #c41e1e; color: #ebe5d4; padding: 24px; margin: 24px 0; transform: rotate(-0.5deg); }
+  .fz-pullquote-text { font-family: 'Anton', sans-serif; font-size: 38px; line-height: 1; letter-spacing: 1px; }
+  .fz-pullquote-attrib { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-top: 14px; }
+  .fz-disco-section { padding: 24px; background: #0a0a0a; color: #ebe5d4; border-bottom: 4px solid #0a0a0a; }
+  .fz-disco-section .fz-section-title { color: #ebe5d4; }
+  .fz-disco-section .fz-section-num { background: #ebe5d4; color: #0a0a0a; }
+  .fz-disco-section .fz-section-rule { background: #ebe5d4; }
+  .fz-disco-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .fz-disco-card { background: #ebe5d4; color: #0a0a0a; padding: 12px; position: relative; }
+  .fz-disco-card.tilt1 { transform: rotate(-1deg); }
+  .fz-disco-card.tilt2 { transform: rotate(0.8deg); }
+  .fz-disco-art { aspect-ratio: 1; background: #0a0a0a; margin-bottom: 8px; position: relative; overflow: hidden; }
+  .fz-disco-art-ht { position: absolute; inset: 0; background-image: radial-gradient(circle, #ebe5d4 0.6px, transparent 1px); background-size: 4px 4px; opacity: 0.18; }
+  .fz-disco-init { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Anton', sans-serif; font-size: 42px; color: #c41e1e; }
+  .fz-disco-name { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 1px; line-height: 1; }
+  .fz-disco-meta { font-family: 'Special Elite', monospace; font-size: 10px; margin-top: 4px; }
+  .fz-disco-tag { display: inline-block; background: #c41e1e; color: #ebe5d4; padding: 1px 6px; font-family: 'Oswald', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; font-weight: 700; }
+  .page-label { background: #c41e1e; padding: 8px 16px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; color: #ebe5d4; text-transform: uppercase; }
+  .red-dot { display: inline-block; width: 6px; height: 6px; background: #0a0a0a; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+</style>
+<h2 class="sr-only">Maquette Page Artiste fanzine — Empreinte sur Carillon Records</h2>
+<div class="fz-wrap fz-noise">
+  <div class="page-label"><span class="red-dot"></span>Page artiste — Empreinte (fanzine)</div>
+
+  <div class="fz-strip">
+    <div>Carillon · Page artiste · Nº 01 / 04</div>
+    <div>★ INTERVIEW EXCLUSIVE ★</div>
+  </div>
+
+  <nav class="fz-nav">
+    <div class="fz-back">← retour roster</div>
+    <div class="fz-logo">CARILLON</div>
+    <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;">FR / EN</div>
+  </nav>
+
+  <div class="fz-cover">
+    <div class="fz-cover-kicker">▼ Portrait · Le groupe ▼</div>
+    <div class="fz-cover-title">EM<em>PREINTE</em></div>
+    <div class="fz-cover-sub">Metalcore moderne + électronique cristalline. Lyon. Depuis 2018. <strong>Pas de retour en arrière possible.</strong></div>
+    <div class="fz-cover-stamp red">Interview</div>
+  </div>
+
+  <div class="fz-photo-strip">
+    <div class="fz-big-photo">
+      <div class="fz-halftone"></div>
+      <div class="fz-photo-mark">EMP</div>
+      <div class="fz-photo-tape">★ Live 2026 ★</div>
+      <div class="fz-photo-cap">Empreinte en répétition — septembre 2026 · Photo à paraître</div>
+    </div>
+    <div class="fz-id-card">
+      <div class="fz-id-title">CARTE<br>D'IDENTITÉ</div>
+      <div class="fz-id-row"><strong>Genre</strong> <span>Metalcore</span></div>
+      <div class="fz-id-row"><strong>Origine</strong> <span>France</span></div>
+      <div class="fz-id-row"><strong>Au label</strong> <span>Depuis 2021</span></div>
+      <div class="fz-id-row"><strong>Releases</strong> <span>2 LP · 3 EP</span></div>
+      <div class="fz-id-row" style="border:none;"><strong>Spotify / mois</strong> <span>1 052</span></div>
+      <div class="fz-id-members">
+        <div class="fz-id-members-title">▼ LE LINE-UP ▼</div>
+        <div class="fz-id-member"><span>YANNIS</span><span>chant</span></div>
+        <div class="fz-id-member"><span>LYLIAN</span><span>guitare</span></div>
+        <div class="fz-id-member"><span>QUENTIN</span><span>guitare</span></div>
+        <div class="fz-id-member"><span>MATTEO</span><span>batterie ★new</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fz-interview">
+    <div class="fz-interview-head">
+      <div class="fz-section-num">01</div>
+      <div class="fz-section-title">L'INTERVIEW</div>
+      <div class="fz-section-rule"></div>
+    </div>
+    <div class="fz-qa">
+      <div class="fz-q">Empreinte en trois mots ?</div>
+      <div class="fz-a">Authenticité. Puissance. Cristal. On joue du metalcore moderne où l'électro ne décore pas — elle structure. Chaque morceau, c'est une décharge. Un écho au chaos contemporain.</div>
+    </div>
+    <div class="fz-pullquote">
+      <div class="fz-pullquote-text">« CHAQUE MORCEAU EST UNE DÉCHARGE ÉMOTIONNELLE. »</div>
+      <div class="fz-pullquote-attrib">— Yannis, chant</div>
+    </div>
+    <div class="fz-qa">
+      <div class="fz-q">VERTIGO en 2025, version instrumentale en 2026. Pourquoi ?</div>
+      <div class="fz-a">Parce que les compos tiennent debout sans la voix. C'était un test, et ça a marché. On voulait qu'on entende vraiment ce qu'on fait avec les guitares et les machines.</div>
+    </div>
+    <div class="fz-qa">
+      <div class="fz-q">La suite ?</div>
+      <div class="fz-a">Studio en hiver. Tournée au printemps. Et on signe pour rester chez Carillon — c'est le label qu'il nous fallait. Pas de pression, pas de bullshit.</div>
+    </div>
+  </div>
+
+  <div class="fz-disco-section">
+    <div class="fz-interview-head">
+      <div class="fz-section-num">02</div>
+      <div class="fz-section-title">DISCOGRAPHIE</div>
+      <div class="fz-section-rule"></div>
+    </div>
+    <div class="fz-disco-grid">
+      <div class="fz-disco-card tilt1">
+        <div class="fz-disco-art"><div class="fz-disco-art-ht"></div><div class="fz-disco-init">V</div></div>
+        <div class="fz-disco-name">VERTIGO inst.</div>
+        <div class="fz-disco-meta">2026 · EP</div>
+        <div class="fz-disco-tag">Dernier</div>
+      </div>
+      <div class="fz-disco-card tilt2">
+        <div class="fz-disco-art"><div class="fz-disco-art-ht"></div><div class="fz-disco-init">V</div></div>
+        <div class="fz-disco-name">VERTIGO</div>
+        <div class="fz-disco-meta">2025 · EP</div>
+      </div>
+      <div class="fz-disco-card tilt1">
+        <div class="fz-disco-art"><div class="fz-disco-art-ht"></div><div class="fz-disco-init">S</div></div>
+        <div class="fz-disco-name">Satellite</div>
+        <div class="fz-disco-meta">2025 · Single</div>
+        <div class="fz-disco-tag">11 528</div>
+      </div>
+      <div class="fz-disco-card tilt2">
+        <div class="fz-disco-art"><div class="fz-disco-art-ht"></div><div class="fz-disco-init">I</div></div>
+        <div class="fz-disco-name">Ice Cold Knives</div>
+        <div class="fz-disco-meta">2024</div>
+        <div class="fz-disco-tag">13 194</div>
+      </div>
+      <div class="fz-disco-card tilt1">
+        <div class="fz-disco-art"><div class="fz-disco-art-ht"></div><div class="fz-disco-init">V</div></div>
+        <div class="fz-disco-name">Void</div>
+        <div class="fz-disco-meta">2021 · EP</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,240 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Special+Elite&family=Bungee+Inline&display=swap');
+  .fz-wrap { font-family: 'Special Elite', monospace; background: #ebe5d4; color: #0a0a0a; border-radius: 12px; overflow: hidden; position: relative; }
+  .fz-noise::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:0.4; background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px); background-size: 3px 3px; mix-blend-mode: multiply; z-index: 0; }
+  .fz-strip { background: #0a0a0a; color: #ebe5d4; padding: 6px 16px; display: flex; justify-content: space-between; font-family: 'Special Elite', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .fz-header { padding: 16px 24px 8px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 4px solid #0a0a0a; position: relative; }
+  .fz-issue { font-family: 'Special Elite', monospace; font-size: 11px; line-height: 1.4; }
+  .fz-stamp { transform: rotate(-8deg); border: 3px solid #c41e1e; color: #c41e1e; padding: 6px 14px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.85; }
+  .fz-bigtitle { padding: 12px 24px; border-bottom: 4px solid #0a0a0a; position: relative; background: #ebe5d4; }
+  .fz-bigtitle-main { font-family: 'Anton', sans-serif; font-size: 130px; line-height: 0.85; letter-spacing: 2px; color: #0a0a0a; }
+  .fz-bigtitle-sub { font-family: 'Special Elite', monospace; font-size: 13px; margin-top: 6px; letter-spacing: 2px; }
+  .fz-cover { display: grid; grid-template-columns: 1.4fr 1fr; min-height: 420px; border-bottom: 4px solid #0a0a0a; }
+  .fz-cover-photo { background: #0a0a0a; position: relative; overflow: hidden; padding: 20px; }
+  .fz-halftone { position: absolute; inset: 0; background-image: radial-gradient(circle, #ebe5d4 1px, transparent 1.4px); background-size: 6px 6px; opacity: 0.15; }
+  .fz-cover-mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Anton', sans-serif; font-size: 240px; color: #1f1f1f; line-height: 0.8; letter-spacing: -8px; }
+  .fz-cover-tape { position: absolute; top: 14px; right: -10px; background: rgba(196, 30, 30, 0.85); color: #ebe5d4; padding: 4px 24px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; transform: rotate(8deg); }
+  .fz-cover-caption { position: absolute; bottom: 16px; left: 20px; background: #ebe5d4; color: #0a0a0a; padding: 6px 12px; font-family: 'Special Elite', monospace; font-size: 11px; max-width: 280px; }
+  .fz-cover-text { padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; position: relative; background: #ebe5d4; }
+  .fz-cover-blocktitle { font-family: 'Anton', sans-serif; font-size: 78px; line-height: 0.88; letter-spacing: 1px; color: #0a0a0a; margin-bottom: 16px; }
+  .fz-strikethrough { text-decoration: line-through; text-decoration-thickness: 4px; color: #888; }
+  .fz-highlight { background: #c41e1e; color: #ebe5d4; padding: 0 6px; display: inline-block; }
+  .fz-cover-body { font-family: 'Special Elite', monospace; font-size: 14px; line-height: 1.5; margin-bottom: 18px; max-width: 90%; }
+  .fz-black-bar { background: #0a0a0a; color: #ebe5d4; padding: 12px 16px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; text-align: center; }
+  .fz-roster-section { padding: 24px; border-bottom: 4px solid #0a0a0a; position: relative; }
+  .fz-section-marker { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .fz-section-num { background: #0a0a0a; color: #ebe5d4; padding: 4px 12px; font-family: 'Anton', sans-serif; font-size: 22px; }
+  .fz-section-title { font-family: 'Anton', sans-serif; font-size: 32px; letter-spacing: 1px; flex: 1; }
+  .fz-section-rule { flex: 1; height: 4px; background: #0a0a0a; }
+  .fz-roster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fz-band-card { border: 3px solid #0a0a0a; padding: 14px; background: #ebe5d4; position: relative; cursor: pointer; }
+  .fz-band-card.invert { background: #0a0a0a; color: #ebe5d4; }
+  .fz-band-card-tilt-1 { transform: rotate(-0.5deg); }
+  .fz-band-card-tilt-2 { transform: rotate(0.5deg); }
+  .fz-band-row { display: flex; gap: 14px; align-items: flex-start; }
+  .fz-band-photo { width: 70px; height: 70px; background: #0a0a0a; flex-shrink: 0; position: relative; overflow: hidden; }
+  .fz-band-photo.light { background: #ebe5d4; border: 2px solid #ebe5d4; }
+  .fz-band-photo-ht { position: absolute; inset: 0; background-image: radial-gradient(circle, #ebe5d4 0.8px, transparent 1.2px); background-size: 4px 4px; opacity: 0.4; }
+  .fz-band-photo-ht.dark { background-image: radial-gradient(circle, #0a0a0a 0.8px, transparent 1.2px); }
+  .fz-band-photo-init { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Anton', sans-serif; font-size: 30px; color: #c41e1e; }
+  .fz-band-info { flex: 1; }
+  .fz-band-name { font-family: 'Anton', sans-serif; font-size: 26px; letter-spacing: 1px; line-height: 1; margin-bottom: 4px; }
+  .fz-band-genre { font-family: 'Special Elite', monospace; font-size: 11px; margin-bottom: 8px; }
+  .fz-band-members { font-family: 'Special Elite', monospace; font-size: 11px; line-height: 1.5; }
+  .fz-band-tag { display: inline-block; background: #c41e1e; color: #ebe5d4; padding: 2px 8px; font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; font-weight: 700; }
+  .fz-band-tag.new { background: #ebe5d4; color: #c41e1e; border: 2px solid #c41e1e; }
+  .fz-band-tag.solo { background: transparent; color: inherit; border: 2px solid currentColor; }
+  .fz-releases-section { padding: 24px; border-bottom: 4px solid #0a0a0a; background: #0a0a0a; color: #ebe5d4; position: relative; }
+  .fz-releases-section .fz-section-title { color: #ebe5d4; }
+  .fz-releases-section .fz-section-num { background: #ebe5d4; color: #0a0a0a; }
+  .fz-releases-section .fz-section-rule { background: #ebe5d4; }
+  .fz-rel-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .fz-rel-row { display: grid; grid-template-columns: 60px 1fr auto auto; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 2px dashed #4a4a4a; }
+  .fz-rel-row:last-child { border: none; }
+  .fz-rel-num { font-family: 'Anton', sans-serif; font-size: 36px; color: #c41e1e; line-height: 1; }
+  .fz-rel-info { font-family: 'Special Elite', monospace; }
+  .fz-rel-band { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 1px; color: #ebe5d4; }
+  .fz-rel-title { font-family: 'Special Elite', monospace; font-size: 12px; color: #c0bba8; margin-top: 2px; }
+  .fz-rel-date { font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8474; }
+  .fz-rel-arrow { font-family: 'Anton', sans-serif; font-size: 22px; color: #c41e1e; }
+  .fz-cta-strip { background: #c41e1e; color: #ebe5d4; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #0a0a0a; }
+  .fz-cta-text { font-family: 'Anton', sans-serif; font-size: 32px; letter-spacing: 1px; }
+  .fz-cta-text em { font-style: normal; background: #0a0a0a; padding: 0 8px; }
+  .fz-cta-btn { background: #0a0a0a; color: #ebe5d4; padding: 12px 20px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border: 3px solid #ebe5d4; }
+  .fz-footer { padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', monospace; font-size: 11px; background: #ebe5d4; }
+  .fz-footer-logo { font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 2px; }
+  .page-label { background: #c41e1e; padding: 8px 16px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; color: #ebe5d4; text-transform: uppercase; }
+  .red-dot { display: inline-block; width: 6px; height: 6px; background: #0a0a0a; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .fz-postit { position: absolute; right: 24px; top: 110px; background: #ffe761; padding: 14px 16px; max-width: 200px; transform: rotate(4deg); box-shadow: 2px 4px 0 rgba(0,0,0,0.25); font-family: 'Special Elite', monospace; font-size: 11px; line-height: 1.4; z-index: 2; }
+  .fz-postit-title { font-family: 'Anton', sans-serif; font-size: 18px; margin-bottom: 4px; }
+</style>
+<h2 class="sr-only">Maquette Homepage — Direction fanzine brutaliste pour Carillon Records</h2>
+<div class="fz-wrap fz-noise">
+  <div class="page-label"><span class="red-dot"></span>Homepage — Brutaliste fanzine</div>
+
+  <div class="fz-strip">
+    <div>Carillon · Tirage limité · Nº 04</div>
+    <div>★ FRANCE 2026 ★</div>
+  </div>
+
+  <div class="fz-header">
+    <div class="fz-issue">
+      // Édition de novembre<br>
+      // 4 groupes, 1 label<br>
+      // Pas de pub. Pas de filtre.
+    </div>
+    <div class="fz-stamp">Édition spéciale</div>
+  </div>
+
+  <div class="fz-bigtitle">
+    <div class="fz-bigtitle-main">CARILLON</div>
+    <div class="fz-bigtitle-sub">_____ records & édition · metalcore / death / hardcore</div>
+    <div class="fz-postit">
+      <div class="fz-postit-title">URGENT !</div>
+      Akapov<br>
+      <strong>19.06</strong><br>
+      Premier single
+    </div>
+  </div>
+
+  <div class="fz-cover">
+    <div class="fz-cover-photo">
+      <div class="fz-halftone"></div>
+      <div class="fz-cover-mark">AKA</div>
+      <div class="fz-cover-tape">★ Exclu ★</div>
+      <div class="fz-cover-caption">Akapov — Photo studio · mai 2026</div>
+    </div>
+    <div class="fz-cover-text">
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c41e1e;margin-bottom:12px;">▼ Premier single ▼</div>
+        <div class="fz-cover-blocktitle">FLOWERS,<br>WINE <span class="fz-strikethrough">&</span><br><span class="fz-highlight">CANDLE</span></div>
+        <div class="fz-cover-body">→ Arthur, Yannis, Titou, Grégory.<br>→ Quatre mecs, un titre, et la promesse d'autre chose.<br>→ Disponible partout le <strong>19 JUIN 2026</strong>.</div>
+      </div>
+      <div class="fz-black-bar">★ Pré-écoute exclusive ★</div>
+    </div>
+  </div>
+
+  <div class="fz-roster-section">
+    <div class="fz-section-marker">
+      <div class="fz-section-num">01</div>
+      <div class="fz-section-title">LE ROSTER</div>
+      <div class="fz-section-rule"></div>
+    </div>
+    <div class="fz-roster-grid">
+      <div class="fz-band-card fz-band-card-tilt-1">
+        <div class="fz-band-row">
+          <div class="fz-band-photo">
+            <div class="fz-band-photo-ht"></div>
+            <div class="fz-band-photo-init">E</div>
+          </div>
+          <div class="fz-band-info">
+            <div class="fz-band-name">EMPREINTE</div>
+            <div class="fz-band-genre">// metalcore + électro</div>
+            <div class="fz-band-members">Yannis · Lylian<br>Quentin · Matteo</div>
+            <div class="fz-band-tag">1 052 / mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="fz-band-card invert fz-band-card-tilt-2">
+        <div class="fz-band-row">
+          <div class="fz-band-photo light">
+            <div class="fz-band-photo-ht dark"></div>
+            <div class="fz-band-photo-init">I</div>
+          </div>
+          <div class="fz-band-info">
+            <div class="fz-band-name">INDICIBLE</div>
+            <div class="fz-band-genre">// death · groove · slam</div>
+            <div class="fz-band-members">Felix (drums)<br>+ line-up complet</div>
+            <div class="fz-band-tag">Amiens</div>
+          </div>
+        </div>
+      </div>
+      <div class="fz-band-card fz-band-card-tilt-2">
+        <div class="fz-band-row">
+          <div class="fz-band-photo">
+            <div class="fz-band-photo-ht"></div>
+            <div class="fz-band-photo-init">A</div>
+          </div>
+          <div class="fz-band-info">
+            <div class="fz-band-name">AKAPOV</div>
+            <div class="fz-band-genre">// metalcore</div>
+            <div class="fz-band-members">Arthur · Yannis<br>Titou · Grégory</div>
+            <div class="fz-band-tag new">NEW !!</div>
+          </div>
+        </div>
+      </div>
+      <div class="fz-band-card fz-band-card-tilt-1">
+        <div class="fz-band-row">
+          <div class="fz-band-photo">
+            <div class="fz-band-photo-ht"></div>
+            <div class="fz-band-photo-init">F</div>
+          </div>
+          <div class="fz-band-info">
+            <div class="fz-band-name">F. FEUILLETTE</div>
+            <div class="fz-band-genre">// batteur · sessions</div>
+            <div class="fz-band-members">Indicible · ex-Empreinte</div>
+            <div class="fz-band-tag solo">Solo / session</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fz-releases-section">
+    <div class="fz-section-marker">
+      <div class="fz-section-num">02</div>
+      <div class="fz-section-title">SORTIES DU MOIS</div>
+      <div class="fz-section-rule"></div>
+    </div>
+    <div class="fz-rel-list">
+      <div class="fz-rel-row">
+        <div class="fz-rel-num">01</div>
+        <div class="fz-rel-info">
+          <div class="fz-rel-band">AKAPOV</div>
+          <div class="fz-rel-title">Flowers, Wine and Candle · single</div>
+        </div>
+        <div class="fz-rel-date">19 JUIN 26</div>
+        <div class="fz-rel-arrow">→</div>
+      </div>
+      <div class="fz-rel-row">
+        <div class="fz-rel-num">02</div>
+        <div class="fz-rel-info">
+          <div class="fz-rel-band">EMPREINTE</div>
+          <div class="fz-rel-title">VERTIGO (instrumental) · EP</div>
+        </div>
+        <div class="fz-rel-date">2026 · EP</div>
+        <div class="fz-rel-arrow">→</div>
+      </div>
+      <div class="fz-rel-row">
+        <div class="fz-rel-num">03</div>
+        <div class="fz-rel-info">
+          <div class="fz-rel-band">INDICIBLE</div>
+          <div class="fz-rel-title">L'Ordre du Temple Solaire · EP</div>
+        </div>
+        <div class="fz-rel-date">2024 · EP</div>
+        <div class="fz-rel-arrow">→</div>
+      </div>
+      <div class="fz-rel-row">
+        <div class="fz-rel-num">04</div>
+        <div class="fz-rel-info">
+          <div class="fz-rel-band">EMPREINTE</div>
+          <div class="fz-rel-title">Shattered Memories · single</div>
+        </div>
+        <div class="fz-rel-date">2025</div>
+        <div class="fz-rel-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fz-cta-strip">
+    <div class="fz-cta-text">PAS DE COMPROMIS. <em>JUSTE</em> DU SON.</div>
+    <div class="fz-cta-btn">→ Contact presse</div>
+  </div>
+
+  <div class="fz-footer">
+    <div class="fz-footer-logo">CARILLON</div>
+    <div>© 2026 — Tous droits réservés à personne en particulier</div>
+    <div>IG · BC · SP · YT</div>
+  </div>
+</div>
