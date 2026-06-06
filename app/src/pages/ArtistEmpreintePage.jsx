@@ -127,7 +127,7 @@ const TrackDuration = styled.div`
 const Hero = styled.div`
   position: relative;
   min-height: 70vh;
-  background: ${colors.ink} url('/artist-empreinte.png') center 40%/cover no-repeat;
+  background: ${colors.ink} url('/artist-empreinte.jpg') center 40%/cover no-repeat;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -435,7 +435,7 @@ export default function ArtistEmpreintePage() {
 
   return (
     <FanzineWrap>
-      <SEO title="Empreinte" description="Empreinte — Metalcore électronique depuis Amiens (2018). Découvrez la discographie, les membres et où écouter." path="/artiste/empreinte" image="/artist-empreinte.png" />
+      <SEO title="Empreinte" description="Empreinte — Metalcore électronique depuis Amiens (2018). Découvrez la discographie, les membres et où écouter." path="/artiste/empreinte" image="/artist-empreinte.jpg" />
       <Hero>
         <HeroOverlay />
         <HeroContent>
@@ -469,7 +469,7 @@ export default function ArtistEmpreintePage() {
         <DiscoGrid>
           {discography.map((d, i) => (
             <DiscoCard key={i} $tilt={d.tilt} onClick={() => setSelected(d)} style={{ cursor: 'pointer' }}>
-              <DiscoArt><img src={d.cover} alt={d.name} /></DiscoArt>
+              <DiscoArt><img src={d.cover} alt={d.name} loading="lazy" decoding="async" /></DiscoArt>
               <DiscoName>{d.name}</DiscoName>
               <DiscoMeta>{d.meta}</DiscoMeta>
             </DiscoCard>

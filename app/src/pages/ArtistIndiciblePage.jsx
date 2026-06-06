@@ -447,7 +447,7 @@ export default function ArtistIndiciblePage() {
           <DiscoGrid>
             {discography.map((d, i) => (
               <DiscoCard key={i} $tilt={d.tilt} $clickable={!!d.tracks} onClick={() => d.tracks && setSelected(d)}>
-                <DiscoArt><img src={d.cover} alt={d.name} /></DiscoArt>
+                <DiscoArt><img src={d.cover} alt={d.name} loading="lazy" decoding="async" /></DiscoArt>
                 <DiscoName>{d.name}</DiscoName>
                 <DiscoMeta>{d.meta}</DiscoMeta>
               </DiscoCard>

@@ -180,7 +180,7 @@ const MembersSection = styled.div`
 `
 
 const MembersPhoto = styled.div`
-  background: ${colors.ink} url('/artist-akapov.png') center 30%/cover no-repeat;
+  background: ${colors.ink} url('/artist-akapov.jpg') center 30%/cover no-repeat;
   min-height: 400px;
 
   @media (max-width: 768px) {
