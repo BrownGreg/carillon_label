@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { createGlobalStyle } from 'styled-components'
 import SiteHeader from './components/SiteHeader'
 import SiteFooter from './components/SiteFooter'
+import ScrollToTop from './components/ScrollToTop'
 import HomePage from './pages/HomePage'
 import RosterPage from './pages/RosterPage'
 import AboutPage from './pages/AboutPage'
@@ -27,6 +28,7 @@ export default function App() {
     <HelmetProvider>
     <BrowserRouter>
       <GlobalStyle />
+      <ScrollToTop />
       <SiteHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
