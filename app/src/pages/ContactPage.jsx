@@ -197,7 +197,8 @@ export default function ContactPage() {
           <HeroTitle>ÉCRIS-NOUS</HeroTitle>
           <HeroText>
             Une question sur la coproduction, le management<br />
-            ou l'édition ? On répond à tout.
+            ou l'édition ? On répond à tout.<br /><br />
+            Tu veux présenter ton projet en vue d'une collaboration ? On est à l'écoute.
           </HeroText>
         </HeroInner>
       </Hero>

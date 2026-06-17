@@ -249,6 +249,13 @@ export default function AboutPage() {
                 <MetaVal>Financement et distribution de projets musicaux</MetaVal>
               </div>
             </MetaItem>
+            <MetaItem>
+              <MetaIcon>→</MetaIcon>
+              <div>
+                <MetaLabel>Membres de</MetaLabel>
+                <MetaVal>Haute Fidélité — Fédération des musiques métalliques — Union des managers d'artistes (UMAN)</MetaVal>
+              </div>
+            </MetaItem>
           </AProposMeta>
         </AProposContent>
       </AProposBlock>
