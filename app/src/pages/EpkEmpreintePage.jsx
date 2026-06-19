@@ -562,6 +562,10 @@ const DownloadsSection = styled.div`
   background: ${colors.paper};
   border-bottom: 4px solid ${colors.ink};
 
+  ${SectionLabel} {
+    margin-bottom: 24px;
+  }
+
   @media (max-width: 640px) {
     padding: 32px 24px;
   }
