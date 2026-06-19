@@ -928,7 +928,7 @@ export default function EpkEmpreintePage() {
 
       <DownloadsSection>
         <SectionLabel>06 · Ressources</SectionLabel>
-        <SectionTitle>TÉLÉCHAR&shy;GEMENTS</SectionTitle>
+        <SectionTitle>TÉLÉCHARGEMENTS</SectionTitle>
         <Rule />
         <DownloadsGrid>
           {[
