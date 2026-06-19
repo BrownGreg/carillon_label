@@ -636,6 +636,18 @@ const clips = [
 ]
 
 const dates = [
+  { date: '05.02.2025', lieu: 'Lyon — La Pente' },
+  { date: '06.03.2025', lieu: "Orléans — Le Dropkick" },
+  { date: '07.03.2025', lieu: 'Limoges — Le Dropkick' },
+  { date: '09.03.2025', lieu: 'Lille — La Brat Cave' },
+  { date: '13.03.2025', lieu: 'Charleroi — Le Vecteur (Belgique)' },
+  { date: '17.05.2025', lieu: 'Compiègne — Ziquodrome · avec Ashen & Alternight' },
+  { date: '13.09.2025', lieu: 'Bambiderstroff — Bambi Metal Fest' },
+  { date: '20.09.2025', lieu: 'Betz — Festival de la Voix Verte' },
+  { date: '12.11.2025', lieu: 'Marseille — Makeda' },
+  { date: '13.11.2025', lieu: 'Montpellier — Secret Place' },
+  { date: '12.12.2025', lieu: 'Amiens — Cité Carter' },
+  { date: '22.01.2026', lieu: 'Lille — Brat Cave' },
   { date: '19.02.2026', lieu: 'Schaerbeek — Remifest' },
   { date: '16.05.2026', lieu: 'Soissons — Saint-Jean-des-Vignes' },
 ]
