@@ -451,7 +451,7 @@ export default function ArtistIndiciblePage() {
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Line-up</InfoLabel>
-          <InfoVal>Félix · + line-up complet</InfoVal>
+          <InfoVal>Gabriel, Bob, Arthur et Félix</InfoVal>
         </InfoCell>
       </InfoRow>
 
