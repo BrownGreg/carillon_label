@@ -489,27 +489,41 @@ const DatesSection = styled.div`
   }
 `
 
-const DateRow = styled.div`
+const DatesGrid = styled.div`
   display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 20px;
-  padding: 16px 0;
-  border-bottom: 2px solid rgba(10,10,10,0.08);
-  align-items: center;
-  &:last-child { border-bottom: none; }
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 28px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const DateItem = styled.div`
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(10,10,10,0.08);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
 `
 
 const DateVal = styled.div`
-  font-family: ${fonts.display};
-  font-size: 20px;
+  font-family: ${fonts.heading};
+  font-weight: 700;
+  font-size: 11px;
   letter-spacing: 1px;
   color: ${colors.red};
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 2px;
 `
 
 const DatePlace = styled.div`
   font-family: ${fonts.body};
-  font-size: 15px;
+  font-size: 13px;
   color: ${colors.ink};
+  line-height: 1.4;
 `
 
 /* ── CONTACT ── */
@@ -802,12 +816,14 @@ export default function EpkEmpreintePage() {
         <SectionLabel>05 · Concerts</SectionLabel>
         <SectionTitle>DATES</SectionTitle>
         <Rule />
-        {dates.map(d => (
-          <DateRow key={d.date}>
-            <DateVal>{d.date}</DateVal>
-            <DatePlace>{d.lieu}</DatePlace>
-          </DateRow>
-        ))}
+        <DatesGrid>
+          {dates.map(d => (
+            <DateItem key={d.date}>
+              <DateVal>{d.date}</DateVal>
+              <DatePlace>{d.lieu}</DatePlace>
+            </DateItem>
+          ))}
+        </DatesGrid>
 
         <div style={{ marginTop: '32px', padding: '20px', background: '#f5f0e4', borderLeft: '4px solid #c41e1e' }}>
           <div style={{ fontFamily: fonts.heading, fontWeight: 700, fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase', color: colors.red, marginBottom: '6px' }}>Trioffs 2024</div>
