@@ -556,6 +556,65 @@ const DatePlace = styled.div`
   line-height: 1.4;
 `
 
+/* ── DOWNLOADS ── */
+const DownloadsSection = styled.div`
+  padding: 48px 40px;
+  background: ${colors.paper};
+  border-bottom: 4px solid ${colors.ink};
+
+  @media (max-width: 640px) {
+    padding: 32px 24px;
+  }
+`
+
+const DownloadsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+`
+
+const DownloadBtn = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-decoration: none;
+  padding: 16px 20px;
+  border: 2px solid ${colors.ink};
+  color: ${colors.ink};
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: ${colors.ink};
+    color: ${colors.paper};
+  }
+`
+
+const DownloadLabel = styled.div`
+  font-family: ${fonts.heading};
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.4;
+`
+
+const DownloadType = styled.div`
+  font-family: ${fonts.body};
+  font-size: 10px;
+  color: ${colors.red};
+  margin-top: 3px;
+  letter-spacing: 1px;
+`
+
+const DownloadArrow = styled.div`
+  font-family: ${fonts.display};
+  font-size: 20px;
+  flex-shrink: 0;
+`
+
 /* ── CONTACT ── */
 const ContactSection = styled.div`
   background: ${colors.ink};
@@ -867,8 +926,32 @@ export default function EpkEmpreintePage() {
         </div>
       </DatesSection>
 
+      <DownloadsSection>
+        <SectionLabel>06 · Ressources</SectionLabel>
+        <SectionTitle>TÉLÉCHAR&shy;GEMENTS</SectionTitle>
+        <Rule />
+        <DownloadsGrid>
+          {[
+            { label: 'Press Kit 2025', type: 'PDF · 13 MB', href: '/epk/downloads/empreinte-presskit-2025.pdf' },
+            { label: "Rider d'accueil", type: 'PDF · 778 KB', href: '/epk/downloads/empreinte-rider-2025.pdf' },
+            { label: 'Fiche technique son', type: 'PDF · 413 KB', href: '/epk/downloads/empreinte-fiche-technique-son-2025.pdf' },
+            { label: 'Photo HD — Couleur', type: 'JPG · 1.2 MB', href: '/epk/downloads/empreinte-photo-couleur.jpg' },
+            { label: 'Photo HD — N&B', type: 'JPG · 349 KB', href: '/epk/downloads/empreinte-photo-nb.jpg' },
+            { label: 'Logo pack HD', type: 'PNG · Noir & Blanc', href: '/epk/downloads/empreinte-logo-black.png' },
+          ].map(d => (
+            <DownloadBtn key={d.label} href={d.href} download target="_blank" rel="noopener noreferrer">
+              <div>
+                <DownloadLabel>{d.label}</DownloadLabel>
+                <DownloadType>{d.type}</DownloadType>
+              </div>
+              <DownloadArrow>↓</DownloadArrow>
+            </DownloadBtn>
+          ))}
+        </DownloadsGrid>
+      </DownloadsSection>
+
       <ContactSection>
-        <SectionLabel>06 · Contact & Booking</SectionLabel>
+        <SectionLabel>07 · Contact & Booking</SectionLabel>
         <SectionTitle $light>PROGRAM&shy;MEZ-NOUS</SectionTitle>
         <BookingCTA href="mailto:contact@studiocarillon.fr">
           <BookingLabel>contact@studiocarillon.fr</BookingLabel>
