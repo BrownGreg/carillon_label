@@ -1,1 +1,1 @@
-export const SITE_URL = 'https://carillon-label.fr'
+export const SITE_URL = 'https://carillonlabel.fr'
