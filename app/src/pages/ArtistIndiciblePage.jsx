@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Link } from 'react-router-dom'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import SectionHeader from '../components/SectionHeader'
@@ -419,6 +420,19 @@ export default function ArtistIndiciblePage() {
           <HeroLabel>▼ Page artiste</HeroLabel>
           <HeroName>INDICIBLE</HeroName>
           <HeroGenre>// Death · Groove · Slam · Amiens</HeroGenre>
+          <Link to="/epk/indicible" style={{
+            display: 'inline-flex', alignItems: 'center', gap: '10px',
+            marginTop: '24px', padding: '12px 24px',
+            border: `2px solid rgba(235,229,212,0.4)`, color: colors.paper,
+            fontFamily: fonts.heading, fontWeight: 700, fontSize: '11px',
+            letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none',
+            transition: 'border-color 0.15s, background 0.15s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = colors.red; e.currentTarget.style.background = 'rgba(196,30,30,0.15)' }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(235,229,212,0.4)'; e.currentTarget.style.background = 'transparent' }}
+          >
+            ↓ Press Kit (EPK)
+          </Link>
         </HeroContent>
       </Hero>
 

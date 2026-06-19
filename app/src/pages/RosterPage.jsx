@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
@@ -212,6 +213,57 @@ const FooterLogo = styled.div`
   letter-spacing: 3px;
 `
 
+const ArtistCardDiv = styled.div`
+  display: block;
+  text-decoration: none;
+  color: ${colors.ink};
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid ${colors.ink};
+  border-right: 4px solid ${colors.ink};
+  min-height: 480px;
+  background: ${colors.ink};
+  cursor: pointer;
+
+  &:nth-child(even) {
+    border-right: none;
+  }
+
+  @media (max-width: 768px) {
+    border-right: none;
+    min-height: 360px;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+  }
+`
+
+const toastIn = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+`
+
+const Toast = styled.div`
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: ${colors.ink};
+  color: ${colors.paper};
+  font-family: ${fonts.heading};
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border-left: 4px solid ${colors.red};
+  z-index: 999;
+  animation: ${toastIn} 0.2s ease;
+  white-space: nowrap;
+`
+
 const roster = [
   {
     num: '01',
@@ -233,7 +285,7 @@ const roster = [
   {
     num: '03',
     name: 'AKAPOV',
-    genre: '// Shoegaze metal',
+    genre: '// Shoegaze Nu metal',
     tag: 'Nouveau ★',
     photo: '/artist-akapov.jpg',
     focus: 'center 20%',
@@ -246,10 +298,19 @@ const roster = [
     tag: 'Solo · Session',
     photo: '/artist-feuillette.jpg',
     to: '#',
+    comingSoon: true,
   },
 ]
 
 export default function RosterPage() {
+  const [toast, setToast] = useState(false)
+
+  useEffect(() => {
+    if (!toast) return
+    const t = setTimeout(() => setToast(false), 3000)
+    return () => clearTimeout(t)
+  }, [toast])
+
   return (
     <FanzineWrap>
       <SEO title="Roster" description="Découvrez les artistes du label Carillon : Empreinte, Indicible, Akapov, F. Feuillette. Metalcore, Death Metal, Shoegaze Metal." path="/roster" />
@@ -259,11 +320,9 @@ export default function RosterPage() {
         <HeaderSub>4 groupes · Metalcore / Death / Hardcore / Shoegaze Metal</HeaderSub>
       </Header>
 
-      <Divider>★ Cliquer sur un artiste pour en savoir plus ★</Divider>
-
-      <Grid>
-        {roster.map((artist) => (
-          <ArtistCard key={artist.num} to={artist.to}>
+<Grid>
+        {roster.map((artist) => {
+          const inner = <>
             {artist.photo
               ? <ArtistPhoto src={artist.photo} alt={artist.name} $focus={artist.focus} />
               : <ArtistPhotoBg>{artist.name[0]}</ArtistPhotoBg>
@@ -276,9 +335,13 @@ export default function RosterPage() {
               <ArtistGenre>{artist.genre}</ArtistGenre>
               <ArtistTag>{artist.tag}</ArtistTag>
             </ArtistInfo>
-          </ArtistCard>
-        ))}
+          </>
+          return artist.comingSoon
+            ? <ArtistCardDiv key={artist.num} onClick={() => setToast(true)}>{inner}</ArtistCardDiv>
+            : <ArtistCard key={artist.num} to={artist.to}>{inner}</ArtistCard>
+        })}
       </Grid>
+      {toast && <Toast>// Page bientôt disponible</Toast>}
     </FanzineWrap>
   )
 }

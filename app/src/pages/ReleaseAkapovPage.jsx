@@ -328,7 +328,7 @@ const platforms = [
 export default function ReleaseAkapovPage() {
   return (
     <FanzineWrap>
-      <SEO title="Akapov — Flowers, Wine and Candles" description="Flowers, Wine and Candles — premier single d'Akapov. Shoegaze metal. Disponible le 19 juin 2026. Presave dès maintenant." path="/sortie/akapov-fwac" image="/Cover_flower.jpg" />
+      <SEO title="Akapov — Flowers, Wine and Candles" description="Flowers, Wine and Candles — premier single d'Akapov. Shoegaze Nu metal. Disponible maintenant sur toutes les plateformes." path="/sortie/akapov-fwac" image="/Cover_flower.jpg" />
       <Hero>
         <HeroOverlay />
         <HeroContent>
@@ -340,8 +340,8 @@ export default function ReleaseAkapovPage() {
           </HeroTitle>
           <HeroLastLine>
             <HeroTitle as="div"><em>CANDLES</em></HeroTitle>
-            <PresaveBtn href="https://bfan.link/flowers-wine-and-candles" target="_blank" rel="noopener noreferrer">
-              → Presave
+            <PresaveBtn href="https://www.youtube.com/watch?v=_P4slDLNp-Q" target="_blank" rel="noopener noreferrer">
+              → Voir le clip
             </PresaveBtn>
           </HeroLastLine>
         </HeroContent>
@@ -358,7 +358,7 @@ export default function ReleaseAkapovPage() {
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Genre</InfoLabel>
-          <InfoVal>Shoegaze metal</InfoVal>
+          <InfoVal>Shoegaze Nu metal</InfoVal>
         </InfoCell>
       </InfoRow>
 

@@ -240,8 +240,8 @@ export default function HomePage() {
               Wine and<br />
               Candles
             </RightTitle>
-            <RightDate>19 juin 2026</RightDate>
-            <PresaveBtn>→ Presave</PresaveBtn>
+            <RightDate>Disponible maintenant</RightDate>
+            <PresaveBtn>→ Voir le clip</PresaveBtn>
           </RightContent>
         </Right>
       </Screen>
