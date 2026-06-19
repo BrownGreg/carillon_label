@@ -569,6 +569,10 @@ const DownloadsSection = styled.div`
   @media (max-width: 640px) {
     padding: 32px 24px;
   }
+
+  @media print {
+    display: none;
+  }
 `
 
 const DownloadsGrid = styled.div`
