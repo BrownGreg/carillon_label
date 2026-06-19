@@ -446,8 +446,8 @@ export default function ArtistIndiciblePage() {
           <InfoVal>Amiens</InfoVal>
         </InfoCell>
         <InfoCell>
-          <InfoLabel>Au label</InfoLabel>
-          <InfoVal>Carillon</InfoVal>
+          <InfoLabel>Au label depuis</InfoLabel>
+          <InfoVal>2023</InfoVal>
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Line-up</InfoLabel>
