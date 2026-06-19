@@ -1,5 +1,6 @@
+import { useState, useEffect, useCallback } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
@@ -8,6 +9,42 @@ const bubblePulse = keyframes`
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 `
+
+const slides = [
+  {
+    bg: '/Cover_flower.jpg',
+    bgPos: 'center 70%',
+    label: '★ Nouveau single',
+    band: 'Akapov',
+    title: ['Flowers,', 'Wine and', 'Candles'],
+    date: 'Disponible maintenant',
+    btn: '→ Voir le clip',
+    to: 'https://www.youtube.com/watch?v=_P4slDLNp-Q',
+    external: true,
+  },
+  {
+    bg: '/cover-vertigo.jpg',
+    bgPos: 'center center',
+    label: '★ Nouvel EP',
+    band: 'Empreinte',
+    title: ['Vertigo'],
+    date: 'Disponible maintenant',
+    btn: '→ Écouter',
+    to: 'https://bfan.link/vertigo-18',
+    external: true,
+  },
+  {
+    bg: '/cover-melted.jpg',
+    bgPos: 'center center',
+    label: '★ Single',
+    band: 'Indicible',
+    title: ['Melted'],
+    date: 'Disponible maintenant',
+    btn: '→ Écouter',
+    to: '/artiste/indicible',
+    external: false,
+  },
+]
 
 const Screen = styled.div`
   display: grid;
@@ -90,6 +127,7 @@ const NavBtn = styled(Link)`
   background: transparent;
   text-align: center;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
+  cursor: pointer;
 
   &:hover {
     border-color: ${colors.paper};
@@ -108,13 +146,22 @@ const NavBtn = styled(Link)`
   }
 `
 
-const Right = styled(Link)`
-  display: block;
-  background: ${colors.ink} url('/Cover_flower.jpg') center 70%/cover no-repeat;
+const RightPanel = styled.div`
   position: relative;
   overflow: hidden;
-  text-decoration: none;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    min-height: 420px;
+  }
+`
+
+const SlideBg = styled.div`
+  position: absolute;
+  inset: 0;
+  background: ${colors.ink} url(${({ $src }) => $src}) ${({ $pos }) => $pos || 'center 70%'}/cover no-repeat;
+  opacity: ${({ $active }) => $active ? 1 : 0};
+  transition: opacity 0.8s ease;
 
   &::before {
     content: '';
@@ -126,20 +173,6 @@ const Right = styled(Link)`
       rgba(10,10,10,0.4) 50%,
       rgba(10,10,10,0.15) 100%
     );
-    transition: background 0.3s;
-  }
-
-  &:hover::before {
-    background: linear-gradient(
-      to top,
-      rgba(10,10,10,0.98) 0%,
-      rgba(10,10,10,0.5) 50%,
-      rgba(10,10,10,0.2) 100%
-    );
-  }
-
-  @media (max-width: 768px) {
-    min-height: 420px;
   }
 `
 
@@ -191,7 +224,7 @@ const RightDate = styled.div`
   margin-bottom: 20px;
 `
 
-const PresaveBtn = styled.div`
+const SlideBtn = styled.div`
   display: inline-block;
   background: ${colors.red};
   color: ${colors.paper};
@@ -202,14 +235,53 @@ const PresaveBtn = styled.div`
   text-transform: uppercase;
   padding: 10px 22px;
   border: 2px solid ${colors.red};
+  transition: background 0.2s, color 0.2s;
 
-  ${Right}:hover & {
+  ${RightPanel}:hover & {
     background: transparent;
     color: ${colors.red};
   }
 `
 
+const SlideDots = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  align-items: center;
+`
+
+const SlideDot = styled.button`
+  width: ${({ $active }) => $active ? '20px' : '6px'};
+  height: 6px;
+  background: ${({ $active }) => $active ? colors.red : 'rgba(235,229,212,0.3)'};
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.3s, background 0.3s;
+
+  &:hover {
+    background: ${colors.paper};
+  }
+`
+
 export default function HomePage() {
+  const navigate = useNavigate()
+  const [current, setCurrent] = useState(0)
+
+  const next = useCallback(() => setCurrent(s => (s + 1) % slides.length), [])
+
+  useEffect(() => {
+    const t = setInterval(next, 5000)
+    return () => clearInterval(t)
+  }, [next])
+
+  const slide = slides[current]
+
+  const handlePanelClick = () => {
+    if (slide.external) window.open(slide.to, '_blank', 'noopener noreferrer')
+    else navigate(slide.to)
+  }
+
   return (
     <FanzineWrap>
       <SEO
@@ -231,19 +303,27 @@ export default function HomePage() {
           </Nav>
         </Left>
 
-        <Right to="/sortie/akapov-fwac">
+        <RightPanel onClick={handlePanelClick}>
+          {slides.map((s, i) => (
+            <SlideBg key={i} $src={s.bg} $pos={s.bgPos} $active={i === current} />
+          ))}
           <RightContent>
-            <RightLabel>★ Nouveau single</RightLabel>
-            <RightBand>Akapov</RightBand>
+            <RightLabel>{slide.label}</RightLabel>
+            <RightBand>{slide.band}</RightBand>
             <RightTitle>
-              Flowers,<br />
-              Wine and<br />
-              Candles
+              {slide.title.map((line, i) => (
+                <span key={i}>{line}{i < slide.title.length - 1 && <br />}</span>
+              ))}
             </RightTitle>
-            <RightDate>Disponible maintenant</RightDate>
-            <PresaveBtn>→ Voir le clip</PresaveBtn>
+            <RightDate>{slide.date}</RightDate>
+            <SlideBtn>{slide.btn}</SlideBtn>
+            <SlideDots onClick={e => e.stopPropagation()}>
+              {slides.map((_, i) => (
+                <SlideDot key={i} $active={i === current} onClick={() => setCurrent(i)} />
+              ))}
+            </SlideDots>
           </RightContent>
-        </Right>
+        </RightPanel>
       </Screen>
     </FanzineWrap>
   )
