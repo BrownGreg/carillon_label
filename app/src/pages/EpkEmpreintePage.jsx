@@ -695,8 +695,11 @@ export default function EpkEmpreintePage() {
               et Mateo à la batterie.
             </p>
             <p>
-              Une musique originale et impactante — du métal moderne taillé pour
-              l'introspection comme pour le live. Un défouloir. Une force brute.
+              Le groupe reste déterminé à toujours proposer une musique originale
+              et impactante, du métal moderne à écouter tantôt au casque pour une
+              introspection partagée et centrée sur les thèmes abordés (le mal-être,
+              la dépression…), tantôt en live pour se laisser embarquer dans un
+              rouleau compresseur d'énergie, vibrante, vivante, comme un défouloir.
             </p>
             <p>
               Premier album en préparation, prévu pour début 2027.
