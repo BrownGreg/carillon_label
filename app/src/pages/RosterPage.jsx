@@ -313,11 +313,11 @@ export default function RosterPage() {
 
   return (
     <FanzineWrap>
-      <SEO title="Roster" description="Découvrez les artistes du label Carillon : Empreinte, Indicible, Akapov, F. Feuillette. Metalcore, Death Metal, Shoegaze Metal." path="/roster" />
+      <SEO title="Roster" description="Découvrez les artistes du label Carillon : Empreinte, Indicible, Akapov, F. Feuillette. Metalcore, Death Metal, Shoegaze Nu Metal." path="/roster" />
       <Header>
         <HeaderLabel>▼ Nos artistes ▼</HeaderLabel>
         <HeaderTitle>ROSTER</HeaderTitle>
-        <HeaderSub>4 groupes · Metalcore / Death / Hardcore / Shoegaze Metal</HeaderSub>
+        <HeaderSub>4 groupes · Metalcore / Death / Hardcore / Shoegaze Nu Metal</HeaderSub>
       </Header>
 
 <Grid>
