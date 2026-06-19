@@ -424,6 +424,41 @@ const DatePlace = styled.div`
   line-height: 1.4;
 `
 
+const pingAnim = keyframes`
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196,30,30,0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(196,30,30,0); }
+`
+
+const UpcomingBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: ${fonts.heading};
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: ${colors.red};
+  margin-left: 8px;
+  vertical-align: middle;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${colors.red};
+    animation: ${pingAnim} 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+`
+
+function isUpcoming(dateStr) {
+  const [d, m, y] = dateStr.split('/')
+  return new Date(+y, +m - 1, +d) >= new Date()
+}
+
 /* ── PHOTO STRIP ── */
 const PhotoStrip = styled.div`
   display: grid;
@@ -669,7 +704,10 @@ export default function EpkIndiciblePage() {
           {dates.map(d => (
             <DateItem key={d.date + d.lieu}>
               <DateVal>{d.date}</DateVal>
-              <DatePlace>{d.lieu}</DatePlace>
+              <DatePlace>
+                {d.lieu}
+                {isUpcoming(d.date) && <UpcomingBadge>À venir</UpcomingBadge>}
+              </DatePlace>
             </DateItem>
           ))}
         </DatesGrid>

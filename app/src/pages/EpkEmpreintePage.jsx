@@ -508,6 +508,36 @@ const DateItem = styled.div`
   align-items: flex-start;
 `
 
+const UpcomingBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: ${fonts.heading};
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: ${colors.red};
+  margin-left: 8px;
+  vertical-align: middle;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${colors.red};
+    animation: ${pulse} 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+`
+
+function isUpcoming(dateStr) {
+  const [d, m, y] = dateStr.split('.')
+  return new Date(+y, +m - 1, +d) >= new Date()
+}
+
 const DateVal = styled.div`
   font-family: ${fonts.heading};
   font-weight: 700;
@@ -820,7 +850,10 @@ export default function EpkEmpreintePage() {
           {dates.map(d => (
             <DateItem key={d.date}>
               <DateVal>{d.date}</DateVal>
-              <DatePlace>{d.lieu}</DatePlace>
+              <DatePlace>
+                {d.lieu}
+                {isUpcoming(d.date) && <UpcomingBadge>À venir</UpcomingBadge>}
+              </DatePlace>
             </DateItem>
           ))}
         </DatesGrid>
