@@ -128,7 +128,7 @@ const TrackDuration = styled.div`
 const Hero = styled.div`
   position: relative;
   min-height: 70vh;
-  background: ${colors.ink} url('/artist-empreinte.jpg') center 40%/cover no-repeat;
+  background: ${colors.ink} url('/epk/downloads/empreinte-photo-couleur.jpg') center 40%/cover no-repeat;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -436,23 +436,24 @@ export default function ArtistEmpreintePage() {
 
   return (
     <FanzineWrap>
-      <SEO title="Empreinte" description="Empreinte — Metalcore électronique depuis Amiens (2018). Découvrez la discographie, les membres et où écouter." path="/artiste/empreinte" image="/artist-empreinte.jpg" />
+      <SEO title="Empreinte" description="Empreinte — Métal moderne depuis Amiens (2018). Découvrez la discographie, les membres et où écouter." path="/artiste/empreinte" image="/artist-empreinte.jpg" />
       <Hero>
         <HeroOverlay />
         <HeroContent>
           <HeroLabel>▼ Page artiste</HeroLabel>
           <HeroName>EMPREINTE</HeroName>
-          <HeroGenre>// Metalcore · Électronique · Amiens · Depuis 2018</HeroGenre>
+          <HeroGenre>// Métal moderne · Amiens · Depuis 2018</HeroGenre>
           <Link to="/epk/empreinte" style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
-            marginTop: '24px', padding: '12px 24px',
-            border: `2px solid rgba(235,229,212,0.4)`, color: colors.paper,
-            fontFamily: fonts.heading, fontWeight: 700, fontSize: '11px',
+            marginTop: '24px', padding: '18px 40px',
+            border: `3px solid ${colors.red}`, color: colors.paper,
+            background: colors.red,
+            fontFamily: fonts.heading, fontWeight: 700, fontSize: '13px',
             letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none',
-            transition: 'border-color 0.15s, background 0.15s',
+            transition: 'background 0.15s, border-color 0.15s',
           }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = colors.red; e.currentTarget.style.background = 'rgba(196,30,30,0.15)' }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(235,229,212,0.4)'; e.currentTarget.style.background = 'transparent' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#a01818'; e.currentTarget.style.borderColor = '#a01818' }}
+          onMouseLeave={e => { e.currentTarget.style.background = colors.red; e.currentTarget.style.borderColor = colors.red }}
           >
             ↓ Press Kit (EPK)
           </Link>
@@ -462,19 +463,19 @@ export default function ArtistEmpreintePage() {
       <InfoRow>
         <InfoCell>
           <InfoLabel>Genre</InfoLabel>
-          <InfoVal>Metalcore</InfoVal>
+          <InfoVal>Métal moderne</InfoVal>
         </InfoCell>
         <InfoCell>
           <InfoLabel>Origine</InfoLabel>
           <InfoVal>Amiens</InfoVal>
         </InfoCell>
         <InfoCell>
-          <InfoLabel>Au label</InfoLabel>
-          <InfoVal>Depuis 2021</InfoVal>
+          <InfoLabel>Chez Carillon depuis</InfoLabel>
+          <InfoVal>2025</InfoVal>
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Line-up</InfoLabel>
-          <InfoVal>Yannis · Lylian<br />Félix</InfoVal>
+          <InfoVal>Yannis · Thibaut<br />Nathan · Félix</InfoVal>
         </InfoCell>
       </InfoRow>
 

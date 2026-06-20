@@ -268,9 +268,9 @@ const roster = [
   {
     num: '01',
     name: 'EMPREINTE',
-    genre: '// Metalcore · Électronique',
+    genre: '// Métal moderne',
     tag: 'Amiens · Depuis 2018',
-    photo: '/artist-empreinte.jpg',
+    photo: '/epk/downloads/empreinte-photo-couleur.jpg',
     focus: 'center 40%',
     to: '/artiste/empreinte',
   },
@@ -294,11 +294,10 @@ const roster = [
   {
     num: '04',
     name: 'F. FEUILLETTE',
-    genre: '// Batteur · Sessions',
+    genre: '// Batteur · Session',
     tag: 'Solo · Session',
     photo: '/artist-feuillette.jpg',
-    to: '#',
-    comingSoon: true,
+    to: '/epk/felix-feuillette',
   },
 ]
 

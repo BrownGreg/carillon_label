@@ -594,7 +594,7 @@ const dates = [
   { date: '14/03/2025', lieu: 'Péniche Célestine, Amiens' },
   { date: '12/12/2025', lieu: 'Cité Carter, Amiens' },
   { date: '10/04/2026', lieu: '1001 Bières, Amiens' },
-  { date: '22/05/2026', lieu: 'PDZ, Besançon' },
+  { date: '22/05/2026', lieu: 'Les Passagers du Zinc, Besançon' },
   { date: '23/05/2026', lieu: 'Café du Théâtre, Pontarlier' },
   { date: '06/06/2026', lieu: 'Planche Apérock, Dunkerque' },
 ]

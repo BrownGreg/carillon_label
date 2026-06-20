@@ -422,14 +422,15 @@ export default function ArtistIndiciblePage() {
           <HeroGenre>// Death · Groove · Slam · Amiens</HeroGenre>
           <Link to="/epk/indicible" style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
-            marginTop: '24px', padding: '12px 24px',
-            border: `2px solid rgba(235,229,212,0.4)`, color: colors.paper,
-            fontFamily: fonts.heading, fontWeight: 700, fontSize: '11px',
+            marginTop: '24px', padding: '18px 40px',
+            border: `3px solid ${colors.red}`, color: colors.paper,
+            background: colors.red,
+            fontFamily: fonts.heading, fontWeight: 700, fontSize: '13px',
             letterSpacing: '3px', textTransform: 'uppercase', textDecoration: 'none',
-            transition: 'border-color 0.15s, background 0.15s',
+            transition: 'background 0.15s, border-color 0.15s',
           }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = colors.red; e.currentTarget.style.background = 'rgba(196,30,30,0.15)' }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(235,229,212,0.4)'; e.currentTarget.style.background = 'transparent' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#a01818'; e.currentTarget.style.borderColor = '#a01818' }}
+          onMouseLeave={e => { e.currentTarget.style.background = colors.red; e.currentTarget.style.borderColor = colors.red }}
           >
             ↓ Press Kit (EPK)
           </Link>
@@ -446,12 +447,12 @@ export default function ArtistIndiciblePage() {
           <InfoVal>Amiens</InfoVal>
         </InfoCell>
         <InfoCell>
-          <InfoLabel>Au label depuis</InfoLabel>
-          <InfoVal>2023</InfoVal>
+          <InfoLabel>Chez Carillon depuis</InfoLabel>
+          <InfoVal>2026</InfoVal>
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Line-up</InfoLabel>
-          <InfoVal>Gabriel, Bob, Arthur et Félix</InfoVal>
+          <InfoVal>Gabriel · Bob<br />Arthur · Félix</InfoVal>
         </InfoCell>
       </InfoRow>
 

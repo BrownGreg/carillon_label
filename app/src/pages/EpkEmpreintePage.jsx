@@ -24,10 +24,10 @@ const PrintBtn = styled.button`
   background: ${colors.red};
   color: ${colors.paper};
   border: none;
-  padding: 16px 32px;
+  padding: 20px 48px;
   font-family: ${fonts.heading};
   font-weight: 700;
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 3px;
   text-transform: uppercase;
   cursor: pointer;
@@ -42,7 +42,7 @@ const PrintBtn = styled.button`
 const Hero = styled.div`
   position: relative;
   min-height: 100vh;
-  background: ${colors.ink} url('/epk/empreinte-pic1.jpg') center 30%/cover no-repeat;
+  background: ${colors.ink} url('/epk/downloads/empreinte-photo-couleur.jpg') center 30%/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -184,7 +184,7 @@ const BioSection = styled.div`
 `
 
 const BioPhoto = styled.div`
-  background: ${colors.ink} url('/epk/empreinte-pic2.jpg') center/cover no-repeat;
+  background: ${colors.ink} url('/epk/downloads/empreinte-photo-nb.jpg') center/cover no-repeat;
   min-height: 480px;
 `
 
@@ -698,9 +698,9 @@ const ContactVal = styled.div`
 
 const members = [
   { role: 'Chant', name: 'YANNIS' },
-  { role: 'Guitare', name: 'LYLIAN' },
-  { role: 'Guitare', name: 'QUENTIN' },
-  { role: 'Batterie', name: 'MATEO' },
+  { role: 'Guitare', name: 'THIBAUT' },
+  { role: 'Guitare', name: 'NATHAN' },
+  { role: 'Batterie', name: 'FELIX' },
 ]
 
 const discographie = [
@@ -721,22 +721,10 @@ const discographie = [
 ]
 
 const photos = [
-  '/carrousel/carousel_01_8.jpg',
-  '/carrousel/GROUE-ET-PUBLIC1-600x600.jpg',
-  '/carrousel/GROUPE-ET-PUBLIC2-600x600.jpg',
-  '/carrousel/GROUPE-ET-PUBLIC3-600x600.jpg',
-  '/carrousel/P1090016-600x600.jpg',
-  '/carrousel/P1090027-600x600.jpg',
-  '/carrousel/P1090181-600x600.jpg',
-  '/carrousel/P1090296-600x600.jpg',
-  '/carrousel/P1029709-600x600.jpg',
   '/carrousel/P1029864-600x600.jpg',
+  '/carrousel/P1090027-600x600.jpg',
   '/carrousel/YANNIS-600x600.jpg',
   '/carrousel/YANNIS2-600x600.jpg',
-  '/carrousel/FELIX1-600x600.jpg',
-  '/carrousel/FELIX2-600x600.jpg',
-  '/carrousel/NATHAN2-600x600.jpg',
-  '/carrousel/1-600x600.jpg',
 ]
 
 const clips = [
@@ -760,7 +748,7 @@ const dates = [
   { date: '12.12.2025', lieu: 'Amiens — Cité Carter' },
   { date: '22.01.2026', lieu: 'Lille — Brat Cave' },
   { date: '19.02.2026', lieu: 'Schaerbeek — Remifest' },
-  { date: '16.05.2026', lieu: 'Soissons — Saint-Jean-des-Vignes' },
+  { date: '16.05.2026', lieu: 'Soissons — Esplanade du Mail — 1ère partie Ultra Vomit' },
 ]
 
 export default function EpkEmpreintePage() {
@@ -814,8 +802,8 @@ export default function EpkEmpreintePage() {
           <Body>
             <p>
               EMPREINTE poursuit sa route en 2026 avec une évolution de line-up :
-              Yannis et Lylian continuent l'aventure, rejoints par Quentin à la guitare
-              et Mateo à la batterie.
+              Yannis et Thibaut continuent l'aventure, rejoints par Nathan à la guitare
+              et Felix à la batterie.
             </p>
             <p>
               Le groupe reste déterminé à toujours proposer une musique originale
@@ -943,9 +931,6 @@ export default function EpkEmpreintePage() {
             { label: 'Press Kit 2025', type: 'PDF · 13 MB', href: '/epk/downloads/empreinte-presskit-2025.pdf' },
             { label: "Rider d'accueil", type: 'PDF · 778 KB', href: '/epk/downloads/empreinte-rider-2025.pdf' },
             { label: 'Fiche technique son', type: 'PDF · 413 KB', href: '/epk/downloads/empreinte-fiche-technique-son-2025.pdf' },
-            { label: 'Photo HD — Couleur', type: 'JPG · 1.2 MB', href: '/epk/downloads/empreinte-photo-couleur.jpg' },
-            { label: 'Photo HD — N&B', type: 'JPG · 349 KB', href: '/epk/downloads/empreinte-photo-nb.jpg' },
-            { label: 'Logo pack HD', type: 'PNG · Noir & Blanc', href: '/epk/downloads/empreinte-logo-black.png' },
           ].map(d => (
             <DownloadBtn key={d.label} href={d.href} download target="_blank" rel="noopener noreferrer">
               <div>
@@ -976,7 +961,7 @@ export default function EpkEmpreintePage() {
           </ContactItem>
           <ContactItem>
             <ContactLabel>Genre</ContactLabel>
-            <ContactVal>Metalcore · Électronique</ContactVal>
+            <ContactVal>Métal moderne</ContactVal>
           </ContactItem>
           <ContactItem>
             <ContactLabel>Ville</ContactLabel>
