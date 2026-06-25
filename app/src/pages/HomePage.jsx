@@ -291,7 +291,7 @@ export default function HomePage() {
       />
       <Screen>
         <Left>
-          <Logo src="/logo-fx.png" alt="Carillon" />
+          <Logo src="/logo-carillon-cream-full.png" alt="Carillon" />
           <Tagline>
             Label indépendant · Management<br />
             Édition · Coproduction phonographique

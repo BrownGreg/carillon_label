@@ -268,34 +268,30 @@ const roster = [
   {
     num: '01',
     name: 'EMPREINTE',
-    genre: '// Métal moderne',
-    tag: 'Amiens · Depuis 2018',
-    photo: '/epk/downloads/empreinte-photo-couleur.jpg',
+    tag: 'Modern Metal',
+    photo: '/epk/empreinte-pic1.jpg',
     focus: 'center 40%',
     to: '/artiste/empreinte',
   },
   {
     num: '02',
     name: 'INDICIBLE',
-    genre: '// Death · Groove · Slam',
-    tag: 'Amiens',
+    tag: 'Death · Groove · Slam',
     photo: '/artist-indicible.jpg',
     to: '/artiste/indicible',
   },
   {
     num: '03',
     name: 'AKAPOV',
-    genre: '// Shoegaze Nu metal',
-    tag: 'Nouveau ★',
+    tag: 'Shoegaze Nu Metal',
     photo: '/artist-akapov.jpg',
     focus: 'center 20%',
-    to: '/sortie/akapov-fwac',
+    to: '/artiste/akapov',
   },
   {
     num: '04',
     name: 'F. FEUILLETTE',
-    genre: '// Batteur · Session',
-    tag: 'Solo · Session',
+    tag: 'Batteur · Session',
     photo: '/artist-feuillette.jpg',
     to: '/epk/felix-feuillette',
   },
@@ -316,7 +312,7 @@ export default function RosterPage() {
       <Header>
         <HeaderLabel>▼ Nos artistes ▼</HeaderLabel>
         <HeaderTitle>ROSTER</HeaderTitle>
-        <HeaderSub>4 groupes · Metalcore / Death / Hardcore / Shoegaze Nu Metal</HeaderSub>
+        <HeaderSub>3 groupes + 1 artiste · Metalcore / Death / Hardcore / Shoegaze Nu Metal</HeaderSub>
       </Header>
 
 <Grid>
@@ -331,7 +327,6 @@ export default function RosterPage() {
             <ArtistInfo>
               <ArtistNum>{artist.num} //</ArtistNum>
               <ArtistName>{artist.name}</ArtistName>
-              <ArtistGenre>{artist.genre}</ArtistGenre>
               <ArtistTag>{artist.tag}</ArtistTag>
             </ArtistInfo>
           </>

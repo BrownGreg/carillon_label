@@ -279,6 +279,18 @@ const CarouselBtn = styled.button`
 `
 
 /* ── DATES ── */
+const ShowMoreBtn = styled.button`
+  margin-top: 20px;
+  background: none;
+  border: 2px solid ${colors.ink};
+  color: ${colors.ink};
+  font-family: ${fonts.heading}; font-weight: 700;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  padding: 10px 24px; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  &:hover { background: ${colors.ink}; color: ${colors.paper}; }
+`
+
 const DatesSection = styled.div`
   padding: 48px 40px; background: ${colors.paper};
   border-bottom: 4px solid ${colors.ink};
@@ -502,6 +514,9 @@ const dates = [
   { date: '19/02/2026', groupe: 'EMPREINTE', lieu: 'Schaerbeek — Remifest 🇧🇪' },
   { date: '21/03/2026', groupe: 'KAMI NO IKARI', lieu: 'Châteauroux — 9Cube5 🇫🇷' },
   { date: '16/05/2026', groupe: 'EMPREINTE', lieu: 'Soissons — Esplanade du Mail 🇫🇷' },
+  { date: '30/05/2026', groupe: 'KAMI NO IKARI', lieu: 'Mulhouse — Noumatrouff (release party Smash Hit Combo) 🇫🇷' },
+  { date: '10/06/2026', groupe: 'IANWILL', lieu: 'Hradec Králové — Festival Rock for People 🇨🇿 (Tremplin Planetrox Europe)' },
+  { date: '22/06/2026', groupe: 'INDICIBLE', lieu: 'Les Passagers du Zinc, Besançon 🇫🇷' },
 ]
 
 const testimonials = [
@@ -525,6 +540,7 @@ const testimonials = [
 
 export default function EpkFeuilletteePage() {
   const [slide, setSlide] = useState(0)
+  const [showAllDates, setShowAllDates] = useState(false)
   const next = useCallback(() => setSlide(s => (s + 1) % photos.length), [])
   const prev = useCallback(() => setSlide(s => (s - 1 + photos.length) % photos.length), [])
 
@@ -551,9 +567,9 @@ export default function EpkFeuilletteePage() {
           </HeroTagline>
           <StatsBar>
             <Stat><StatVal>2004</StatVal><StatLabel>Batteur depuis</StatLabel></Stat>
-            <Stat><StatVal>80+</StatVal><StatLabel>Concerts</StatLabel></Stat>
+            <Stat><StatVal>100+</StatVal><StatLabel>Concerts</StatLabel></Stat>
             <Stat><StatVal>EU</StatVal><StatLabel>Tournée 2025</StatLabel></Stat>
-            <Stat><StatVal>6</StatVal><StatLabel>Groupes</StatLabel></Stat>
+            <Stat><StatVal>3</StatVal><StatLabel>Groupes</StatLabel></Stat>
           </StatsBar>
         </HeroInner>
       </Hero>
@@ -577,7 +593,7 @@ export default function EpkFeuilletteePage() {
               cesser d'explorer d'autres styles pour enrichir son jeu et affiner sa polyvalence.
             </p>
             <p>
-              Depuis ses débuts en groupe en 2013, Félix cumule aujourd'hui plus de 80 concerts à son
+              Depuis ses débuts en groupe en 2013, Félix cumule aujourd'hui plus de 100 concerts à son
               actif, des salles intimistes aux scènes de festivals. En 2025, il embarque sur sa première{' '}
               <strong>tournée européenne</strong> avec Kami No Ikari, assurant chaque soir dans des
               salles de 1 000 personnes — un marathon scénique salué pour sa précision, son endurance
@@ -602,7 +618,7 @@ export default function EpkFeuilletteePage() {
             <SkillList>
               <li>Spécialité : metal extrême, rock, metal, hardcore, musiques actuelles</li>
               <li>Session live & studio — set appris en 1 à 2 semaines</li>
-              <li>+80 concerts en salles, clubs et festivals</li>
+              <li>+100 concerts en salles, clubs et festivals</li>
               <li>Tournée européenne 2025 (salles de 1 000 personnes)</li>
               <li>Technique avancée & endurance scénique</li>
               <li>Connaissance théorique solide</li>
@@ -667,7 +683,7 @@ export default function EpkFeuilletteePage() {
         <SectionTitle>DATES</SectionTitle>
         <Rule />
         <DatesGrid>
-          {dates.map((d, i) => (
+          {(showAllDates ? dates : dates.slice(0, 10)).map((d, i) => (
             <DateItem key={i}>
               <DateVal>{d.date}</DateVal>
               <DateInfo>
@@ -680,6 +696,11 @@ export default function EpkFeuilletteePage() {
             </DateItem>
           ))}
         </DatesGrid>
+        {!showAllDates && dates.length > 10 && (
+          <ShowMoreBtn onClick={() => setShowAllDates(true)}>
+            Afficher plus ({dates.length - 10} dates)
+          </ShowMoreBtn>
+        )}
       </DatesSection>
 
       <TestiSection>
@@ -715,6 +736,14 @@ export default function EpkFeuilletteePage() {
           <ContactItem>
             <ContactLabel>Spécialité</ContactLabel>
             <ContactVal>Metal extrême · Session</ContactVal>
+          </ContactItem>
+          <ContactItem>
+            <ContactLabel>Endorsement</ContactLabel>
+            <ContactVal>
+              <a href="https://asbadrums.com/artist/felix-feuillette" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', borderBottom: `1px solid ${colors.red}` }}>
+                ASBA Drums ↗
+              </a>
+            </ContactVal>
           </ContactItem>
           <ContactItem>
             <ContactLabel>Label</ContactLabel>

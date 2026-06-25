@@ -21,17 +21,21 @@ const Bar = styled.footer`
 `
 
 const Logo = styled(Link)`
-  font-family: ${fonts.display};
-  font-size: 32px;
-  letter-spacing: 3px;
-  color: ${colors.paper};
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
+
+  img {
+    height: 32px;
+    width: auto;
+  }
 `
 
 export default function SiteFooter() {
   return (
     <Bar>
-      <Logo to="/">CARILLON</Logo>
+      <Logo to="/"><img src="/logo-carillon-cream.png" alt="Carillon" /></Logo>
       <span>© 2026 — Tous droits réservés</span>
       <span>Management · Édition · Coproduction</span>
     </Bar>

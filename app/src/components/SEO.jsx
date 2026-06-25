@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { SITE_URL } from '../config'
 
 const BASE_URL = SITE_URL
-const DEFAULT_IMG = `${BASE_URL}/logo-fx.png`
+const DEFAULT_IMG = `${BASE_URL}/logo-carillon-black-full.png`
 
 export default function SEO({ title, description, path = '', image }) {
   const fullTitle = title ? `${title} — Carillon` : 'Carillon — Label indépendant · Management · Édition · Coproduction'

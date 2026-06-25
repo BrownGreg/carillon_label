@@ -32,7 +32,7 @@ const Rule = styled.div`
 export default function SectionHeader({ num, title, inverted = false, mb }) {
   return (
     <Head $mb={mb}>
-      <Num $inverted={inverted}>{num}</Num>
+      {num && <Num $inverted={inverted}>{num}</Num>}
       <Title>{title}</Title>
       <Rule $inverted={inverted} />
     </Head>

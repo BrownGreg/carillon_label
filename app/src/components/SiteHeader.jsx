@@ -59,7 +59,7 @@ const Tagline = styled.div`
 `
 
 const LogoImg = styled.img`
-  height: 96px;
+  height: 80px;
   width: auto;
   transition: filter 0.3s ease;
 
@@ -68,7 +68,7 @@ const LogoImg = styled.img`
   }
 
   @media (max-width: 480px) {
-    height: 72px;
+    height: 56px;
   }
 `
 
@@ -128,7 +128,7 @@ export default function SiteHeader() {
   return (
     <Bar>
       <LogoWrap to="/">
-        <LogoImg src="/logo-fx.png" alt="Carillon" />
+        <LogoImg src="/logo-carillon-cream.png" alt="Carillon" />
         <Tagline>Label indépendant · Management<br />Édition · Coproduction phonographique</Tagline>
       </LogoWrap>
       <Nav>

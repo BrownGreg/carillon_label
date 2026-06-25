@@ -11,6 +11,7 @@ const fadeIn = keyframes`
   to   { opacity: 1; transform: translateY(0); }
 `
 
+/* ── MODAL ── */
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
@@ -49,9 +50,7 @@ const ModalCover = styled.img`
   flex-shrink: 0;
 `
 
-const ModalInfo = styled.div`
-  flex: 1;
-`
+const ModalInfo = styled.div`flex: 1;`
 
 const ModalTitle = styled.div`
   font-family: ${fonts.display};
@@ -89,7 +88,6 @@ const Track = styled.div`
   gap: 12px;
   padding: 10px 24px;
   border-bottom: 1px solid rgba(10,10,10,0.1);
-
   &:last-child { border-bottom: none; }
   &:hover { background: rgba(10,10,10,0.05); }
 `
@@ -102,19 +100,10 @@ const TrackNum = styled.div`
   text-align: right;
 `
 
-const TrackInfo = styled.div``
-
 const TrackName = styled.div`
   font-family: ${fonts.body};
   font-size: 14px;
   color: ${colors.ink};
-`
-
-const TrackFeat = styled.div`
-  font-family: ${fonts.body};
-  font-size: 11px;
-  color: ${colors.darkGrey};
-  margin-top: 2px;
 `
 
 const TrackDuration = styled.div`
@@ -125,10 +114,12 @@ const TrackDuration = styled.div`
   letter-spacing: 1px;
 `
 
+
+/* ── HERO ── */
 const Hero = styled.div`
   position: relative;
   min-height: 70vh;
-  background: ${colors.ink} url('/epk/empreinte-pic1.jpg') center 40%/cover no-repeat;
+  background: ${colors.ink} url('/artist-akapov.jpg') center 30%/cover no-repeat;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -180,6 +171,7 @@ const HeroGenre = styled.div`
   margin-top: 12px;
 `
 
+/* ── INFO ROW ── */
 const InfoRow = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -206,9 +198,7 @@ const InfoCell = styled.div`
     &:last-child, &:nth-last-child(2):nth-child(odd) {
       border-bottom: none;
     }
-  }
 
-  @media (max-width: 640px) {
     padding: 18px 16px;
   }
 `
@@ -231,6 +221,7 @@ const InfoVal = styled.div`
   line-height: 1.1;
 `
 
+/* ── DISCOGRAPHIE ── */
 const DiscoSection = styled.div`
   background: ${colors.ink};
   padding: 36px 40px;
@@ -243,23 +234,22 @@ const DiscoSection = styled.div`
 
 const DiscoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 24px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 400px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  max-width: 560px;
 `
 
 const DiscoCard = styled.div`
   background: ${colors.paper};
   padding: 14px;
   transform: ${({ $tilt }) => $tilt === '1' ? 'rotate(-1deg)' : 'rotate(0.8deg)'};
+  cursor: pointer;
+  transition: transform 0.15s;
+
+  &:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
 `
 
 const DiscoArt = styled.div`
@@ -267,6 +257,7 @@ const DiscoArt = styled.div`
   background: ${colors.ink};
   margin-bottom: 10px;
   overflow: hidden;
+  position: relative;
 
   img {
     width: 100%;
@@ -281,6 +272,7 @@ const DiscoArt = styled.div`
     filter: grayscale(0%);
   }
 `
+
 
 const DiscoName = styled.div`
   font-family: ${fonts.display};
@@ -297,6 +289,7 @@ const DiscoMeta = styled.div`
   margin-top: 4px;
 `
 
+/* ── PLATFORMS ── */
 const PlatformsSection = styled.div`
   padding: 36px 40px;
   border-bottom: 4px solid ${colors.ink};
@@ -348,102 +341,50 @@ const PlatformArrow = styled.div`
   color: ${colors.red};
 `
 
-const Footer = styled.div`
-  padding: 24px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: ${fonts.body};
-  font-size: 11px;
-  background: ${colors.ink};
-  color: ${colors.paper};
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-    padding: 20px;
-  }
-`
-
-const FooterLogo = styled.div`
-  font-family: ${fonts.display};
-  font-size: 32px;
-  letter-spacing: 3px;
-`
-
-const platforms = [
-  { name: 'SPOTIFY', url: 'https://open.spotify.com/intl-fr/artist/3hcdgniIdgtEd1H12o7pTE?si=eZInclMwT6alQmFAJk7dxw' },
-  { name: 'APPLE MUSIC', url: 'https://music.apple.com/fr/artist/empreinte/370074605' },
-  { name: 'DEEZER', url: 'https://www.deezer.com/fr/artist/60331862' },
-  { name: 'YOUTUBE', url: 'https://www.youtube.com/@EMPREINTEBAND' },
-]
-
+/* ── DATA ── */
 const discography = [
   {
-    name: 'VERTIGO inst.', meta: '2026 · EP · 22:40', tilt: '1',
-    cover: '/cover-vertigo-inst.jpg',
-    tracks: [
-      { name: 'Dream – Instrumental', duration: '3:41' },
-      { name: 'Ice Cold Knives – Instrumental', duration: '3:52' },
-      { name: 'The Surface – Instrumental', duration: '4:21' },
-      { name: 'Satellite – Instrumental', duration: '3:45' },
-      { name: 'Madness – Instrumental', duration: '3:20' },
-      { name: 'Shattered Memories – Instrumental', duration: '3:39' },
-    ],
+    name: 'LIMBIC',
+    meta: '19/07/2026 · Single',
+    tilt: '1',
+    cover: '/cover-bleed-yourself.jpg',
+    tracks: [{ name: 'Limbic', duration: '3:36' }],
   },
   {
-    name: 'VERTIGO', meta: '2025 · EP · 22:40', tilt: '2',
-    cover: 'https://i.scdn.co/image/ab67616d00001e02a237f6a4309d334cd9689c4a',
-    tracks: [
-      { name: 'Dream', duration: '3:41' },
-      { name: 'Ice Cold Knives', duration: '3:52' },
-      { name: 'The Surface', duration: '4:21' },
-      { name: 'Satellite', duration: '3:45' },
-      { name: 'Madness', duration: '3:20', feat: 'feat. Clem Richard From Ashen' },
-      { name: 'Shattered Memories', duration: '3:39', feat: 'feat. Flo From Averses' },
-    ],
-  },
-  {
-    name: 'Satellite', meta: '2025 · Single', tilt: '1',
-    cover: '/cover-satellite.jpg',
-    tracks: [
-      { name: 'Satellite', duration: '3:45' },
-    ],
-  },
-  {
-    name: 'Ice Cold Knives', meta: '2024 · Single', tilt: '2',
-    cover: '/cover-ice-cold-knives.jpg',
-    tracks: [
-      { name: 'Ice Cold Knives', duration: '3:52' },
-    ],
-  },
-  {
-    name: 'Void', meta: '2021 · EP · 19:36', tilt: '1',
-    cover: '/cover-void.jpg',
-    tracks: [
-      { name: 'Degenerate', duration: '2:56' },
-      { name: 'Burning Paradise', duration: '3:58' },
-      { name: 'Far Away', duration: '4:01' },
-      { name: 'Not So Great', duration: '4:11' },
-      { name: 'The Other World', duration: '4:28' },
-    ],
+    name: 'FLOWERS, WINE AND CANDLES',
+    meta: '19/06/2026 · Single',
+    tilt: '2',
+    cover: '/Cover_flower.jpg',
+    tracks: [{ name: 'Flowers, Wine and Candles', duration: '2:42' }],
   },
 ]
 
-export default function ArtistEmpreintePage() {
+const platforms = [
+  { name: 'SPOTIFY', url: 'https://open.spotify.com/intl-fr/artist/1OCQSGIvc2iO0O1PAUBWmz?si=tOS8v-aMQxeqQofGBEEIBw' },
+  { name: 'APPLE MUSIC', url: 'https://music.apple.com/fr/artist/akapov/1576031015' },
+  { name: 'DEEZER', url: 'https://www.deezer.com/fr/artist/149343932' },
+  { name: 'YOUTUBE', url: 'https://www.youtube.com/@akapovband_fr' },
+]
+
+export default function ArtistAkapovPage() {
   const [selected, setSelected] = useState(null)
 
   return (
     <FanzineWrap>
-      <SEO title="Empreinte" description="Empreinte — Modern Metal depuis Amiens (2018). Découvrez la discographie, les membres et où écouter." path="/artiste/empreinte" image="/artist-empreinte.jpg" />
+      <SEO
+        title="Akapov"
+        description="Akapov — Shoegaze Nu Metal. Découvrez la discographie et où écouter."
+        path="/artiste/akapov"
+        image="/artist-akapov.jpg"
+      />
+
       <Hero>
         <HeroOverlay />
         <HeroContent>
           <HeroLabel>▼ Page artiste</HeroLabel>
-          <HeroName>EMPREINTE</HeroName>
-          <HeroGenre>// Modern Metal · Depuis 2018</HeroGenre>
-          <Link to="/epk/empreinte" style={{
+          <HeroName>AKAPOV</HeroName>
+          <HeroGenre>// Shoegaze Nu Metal · Depuis 2024</HeroGenre>
+          <Link to="/epk/akapov" style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
             marginTop: '24px', padding: '18px 40px',
             border: `3px solid ${colors.red}`, color: colors.paper,
@@ -463,7 +404,7 @@ export default function ArtistEmpreintePage() {
       <InfoRow>
         <InfoCell>
           <InfoLabel>Genre</InfoLabel>
-          <InfoVal>Modern Metal</InfoVal>
+          <InfoVal>Shoegaze Nu Metal</InfoVal>
         </InfoCell>
         <InfoCell>
           <InfoLabel>Origine</InfoLabel>
@@ -471,11 +412,11 @@ export default function ArtistEmpreintePage() {
         </InfoCell>
         <InfoCell>
           <InfoLabel>Chez Carillon depuis</InfoLabel>
-          <InfoVal>2025</InfoVal>
+          <InfoVal>2026</InfoVal>
         </InfoCell>
         <InfoCell $last>
           <InfoLabel>Line-up</InfoLabel>
-          <InfoVal>Yannis · Lylian<br />Félix</InfoVal>
+          <InfoVal>Arthur · Yannis<br />Titou · Grégory</InfoVal>
         </InfoCell>
       </InfoRow>
 
@@ -483,8 +424,11 @@ export default function ArtistEmpreintePage() {
         <SectionHeader title="DISCOGRAPHIE" inverted />
         <DiscoGrid>
           {discography.map((d, i) => (
-            <DiscoCard key={i} $tilt={d.tilt} onClick={() => setSelected(d)} style={{ cursor: 'pointer' }}>
-              <DiscoArt><img src={d.cover} alt={d.name} loading="lazy" decoding="async" /></DiscoArt>
+            <DiscoCard key={i} $tilt={d.tilt} onClick={() => setSelected(d)}>
+              <DiscoArt>
+                <img src={d.cover} alt={d.name} loading="lazy" decoding="async" />
+
+              </DiscoArt>
               <DiscoName>{d.name}</DiscoName>
               <DiscoMeta>{d.meta}</DiscoMeta>
             </DiscoCard>
@@ -518,10 +462,7 @@ export default function ArtistEmpreintePage() {
               {selected.tracks.map((t, i) => (
                 <Track key={i}>
                   <TrackNum>{i + 1}</TrackNum>
-                  <TrackInfo>
-                    <TrackName>{t.name}</TrackName>
-                    {t.feat && <TrackFeat>{t.feat}</TrackFeat>}
-                  </TrackInfo>
+                  <TrackName>{t.name}</TrackName>
                   <TrackDuration>{t.duration}</TrackDuration>
                 </Track>
               ))}

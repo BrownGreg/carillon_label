@@ -458,7 +458,7 @@ export default function ArtistIndiciblePage() {
 
       {discography.length > 0 && (
         <DiscoSection>
-          <SectionHeader num="01" title="DISCOGRAPHIE" inverted />
+          <SectionHeader title="DISCOGRAPHIE" inverted />
           <DiscoGrid>
             {discography.map((d, i) => (
               <DiscoCard key={i} $tilt={d.tilt} $clickable={!!d.tracks} onClick={() => d.tracks && setSelected(d)}>

@@ -42,7 +42,7 @@ const PrintBtn = styled.button`
 const Hero = styled.div`
   position: relative;
   min-height: 100vh;
-  background: ${colors.ink} url('/epk/downloads/empreinte-photo-couleur.jpg') center 30%/cover no-repeat;
+  background: ${colors.ink} url('/epk/empreinte-pic1.jpg') center 30%/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -184,7 +184,7 @@ const BioSection = styled.div`
 `
 
 const BioPhoto = styled.div`
-  background: ${colors.ink} url('/epk/downloads/empreinte-photo-nb.jpg') center/cover no-repeat;
+  background: ${colors.ink} url('/epk/empreinte-pic2.jpg') center/cover no-repeat;
   min-height: 480px;
 `
 
@@ -698,8 +698,7 @@ const ContactVal = styled.div`
 
 const members = [
   { role: 'Chant', name: 'YANNIS' },
-  { role: 'Guitare', name: 'THIBAUT' },
-  { role: 'Guitare', name: 'NATHAN' },
+  { role: 'Guitare', name: 'LYLIAN' },
   { role: 'Batterie', name: 'FELIX' },
 ]
 
@@ -801,9 +800,8 @@ export default function EpkEmpreintePage() {
           <Rule />
           <Body>
             <p>
-              EMPREINTE poursuit sa route en 2026 avec une évolution de line-up :
-              Yannis et Thibaut continuent l'aventure, rejoints par Nathan à la guitare
-              et Felix à la batterie.
+              EMPREINTE poursuit sa route en 2026 avec un nouveau line-up :
+              Yannis au chant, Lylian à la guitare et Félix à la batterie.
             </p>
             <p>
               Le groupe reste déterminé à toujours proposer une musique originale

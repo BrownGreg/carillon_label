@@ -14,6 +14,8 @@ import ReleaseAkapovPage from './pages/ReleaseAkapovPage'
 import EpkEmpreintePage from './pages/EpkEmpreintePage'
 import EpkIndiciblePage from './pages/EpkIndiciblePage'
 import EpkFeuilletteePage from './pages/EpkFeuilletteePage'
+import ArtistAkapovPage from './pages/ArtistAkapovPage'
+import EpkAkapovPage from './pages/EpkAkapovPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const GlobalStyle = createGlobalStyle`
@@ -39,9 +41,11 @@ function Layout() {
         <Route path="/artiste/empreinte" element={<ArtistEmpreintePage />} />
         <Route path="/artiste/indicible" element={<ArtistIndiciblePage />} />
         <Route path="/sortie/akapov-fwac" element={<ReleaseAkapovPage />} />
+        <Route path="/artiste/akapov" element={<ArtistAkapovPage />} />
         <Route path="/epk/empreinte" element={<EpkEmpreintePage />} />
         <Route path="/epk/indicible" element={<EpkIndiciblePage />} />
         <Route path="/epk/felix-feuillette" element={<EpkFeuilletteePage />} />
+        <Route path="/epk/akapov" element={<EpkAkapovPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <SiteFooter />
