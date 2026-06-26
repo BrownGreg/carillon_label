@@ -721,7 +721,7 @@ export default function EpkIndiciblePage() {
         <ContactGrid>
           <ContactItem>
             <ContactLabel>Management / Booking</ContactLabel>
-            <ContactVal>Maud · 07 44 84 63 35</ContactVal>
+            <ContactVal>Maud · 06 45 30 94 93</ContactVal>
           </ContactItem>
           <ContactItem>
             <ContactLabel>Email groupe</ContactLabel>
