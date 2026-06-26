@@ -1,3 +1,10 @@
 app/node_modules/
 app/dist/
 .claude/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
