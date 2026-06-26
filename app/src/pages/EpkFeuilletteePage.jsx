@@ -730,10 +730,6 @@ export default function EpkFeuilletteePage() {
             <ContactVal>Maud · 06 45 30 94 93</ContactVal>
           </ContactItem>
           <ContactItem>
-            <ContactLabel>Direct</ContactLabel>
-            <ContactVal>07 83 77 95 33</ContactVal>
-          </ContactItem>
-          <ContactItem>
             <ContactLabel>Spécialité</ContactLabel>
             <ContactVal>Metal extrême · Session</ContactVal>
           </ContactItem>
