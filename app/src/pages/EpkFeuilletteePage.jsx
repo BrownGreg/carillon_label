@@ -3,6 +3,9 @@ import styled, { createGlobalStyle, keyframes } from 'styled-components'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
+import { supabase } from '../lib/supabase'
+
+const FELIX_ARTIST_ID = '44444444-4444-4444-4444-444444444444'
 
 const PrintStyle = createGlobalStyle`
   @media print {
@@ -343,7 +346,9 @@ const UpcomingBadge = styled.span`
 `
 
 function isUpcoming(dateStr) {
-  const [d, m, y] = dateStr.split('/')
+  const clean = dateStr.replace(/\//g, '.')
+  const [d, m, y] = clean.split('.')
+  if (!d || !m || !y) return false
   return new Date(+y, +m - 1, +d) >= new Date()
 }
 
@@ -453,72 +458,6 @@ const photos = [
   '/ff/received_1492843365023828-600x600.png',
 ]
 
-const dates = [
-  { date: '03/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Hamburg — Markthalle 🇩🇪' },
-  { date: '04/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Oberhausen — Turbinenhalle 2 🇩🇪' },
-  { date: '05/01/2025', groupe: 'KAMI NO IKARI', lieu: 'St Niklaas — De Casino 🇧🇪' },
-  { date: '07/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Londres — Academy Islington 🇬🇧' },
-  { date: '08/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Paris — La Machine du Moulin Rouge 🇫🇷' },
-  { date: '09/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Toulouse — Le Bikini 🇫🇷' },
-  { date: '10/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Burgos — Sala Andén 🇪🇸' },
-  { date: '11/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Madrid — Sala del Wizink 🇪🇸' },
-  { date: '12/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Barcelone — Razzmatazz 2 🇪🇸' },
-  { date: '14/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Lyon — La Rayonne 🇫🇷' },
-  { date: '15/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Trezzo sul Adda — Live Club 🇮🇹' },
-  { date: '16/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Zurich — Komplex 457 🇨🇭' },
-  { date: '17/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Munich — Backstage Werk 🇩🇪' },
-  { date: '18/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Budapest — Barba Negra 🇭🇺' },
-  { date: '19/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Zagreb — Boogaloo 🇭🇷' },
-  { date: '21/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Vienne — Simm City 🇦🇹' },
-  { date: '22/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Kosice — Colosseum 🇸🇰' },
-  { date: '23/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Wroclaw — A2 🇵🇱' },
-  { date: '24/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Prague — Meet Factory 🇨🇿' },
-  { date: '25/01/2025', groupe: 'KAMI NO IKARI', lieu: 'Leipzig — Hellraiser 🇩🇪' },
-  { date: '05/02/2025', groupe: 'EMPREINTE', lieu: 'Lyon — La Pente 🇫🇷' },
-  { date: '06/03/2025', groupe: 'EMPREINTE', lieu: 'Orléans — Le Dropkick 🇫🇷' },
-  { date: '06/03/2025', groupe: 'THROUGH THE VOID', lieu: 'Orléans — Le Dropkick 🇫🇷' },
-  { date: '07/03/2025', groupe: 'EMPREINTE', lieu: 'Limoges — Le Dropkick 🇫🇷' },
-  { date: '07/03/2025', groupe: 'THROUGH THE VOID', lieu: 'Limoges — Le Dropkick 🇫🇷' },
-  { date: '09/03/2025', groupe: 'EMPREINTE', lieu: 'Lille — La Brat Cave 🇫🇷' },
-  { date: '13/03/2025', groupe: 'EMPREINTE', lieu: 'Charleroi — Le Vecteur 🇧🇪' },
-  { date: '14/03/2025', groupe: 'INDICIBLE', lieu: 'Amiens — Péniche Célestine 🇫🇷' },
-  { date: '10/04/2025', groupe: 'KAMI NO IKARI', lieu: 'Marseille — Makeda 🇫🇷' },
-  { date: '03/05/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'Liège — Deathtoberfest 🇧🇪' },
-  { date: '16/05/2025', groupe: 'KAMI NO IKARI', lieu: 'Eragny — Covent Garden 🇫🇷' },
-  { date: '17/05/2025', groupe: 'EMPREINTE', lieu: 'Compiègne — Ziquodrome 🇫🇷' },
-  { date: '23/05/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'St Johan — Rock The Hell 🇨🇭' },
-  { date: '29/05/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'Alkmaar — Hearie Metal Fest 🇳🇱' },
-  { date: '06/06/2025', groupe: 'IANWILL', lieu: 'Ambérieu en Bugey — Triplette Social Club 🇫🇷' },
-  { date: '07/06/2025', groupe: 'IANWILL', lieu: "Grenoble — L'Ampérage 🇫🇷" },
-  { date: '14/06/2025', groupe: 'KAMI NO IKARI', lieu: 'Compiègne — Ziquodrome 🇫🇷' },
-  { date: '18/07/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'Stoumont — Dim Fest 🇧🇪' },
-  { date: '21/08/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'Aarau — Le Kiff 🇨🇭' },
-  { date: '22/08/2025', groupe: 'VERMICULAR INCUBATION', lieu: 'Andernach — Deathfeast 🇩🇪' },
-  { date: '30/08/2025', groupe: 'KAMI NO IKARI', lieu: 'Fertois — Fertois Metal Fest 🇫🇷' },
-  { date: '13/09/2025', groupe: 'EMPREINTE', lieu: 'Bambiderstroff — Bambi Metal Fest 🇫🇷' },
-  { date: '20/09/2025', groupe: 'EMPREINTE', lieu: 'Betz — Festival de la Voix Verte 🇫🇷' },
-  { date: '27/09/2025', groupe: 'IANWILL', lieu: 'Le Havre — Apocalypse Metal Fest 🇫🇷' },
-  { date: '04/10/2025', groupe: 'IANWILL', lieu: 'Quimper — Novamax 🇫🇷' },
-  { date: '10/10/2025', groupe: 'IANWILL', lieu: 'Nantes — Shelter 🇫🇷' },
-  { date: '11/10/2025', groupe: 'IANWILL', lieu: 'Bordeaux — Salem Bar 🇫🇷' },
-  { date: '12/11/2025', groupe: 'EMPREINTE', lieu: 'Marseille — Makeda 🇫🇷' },
-  { date: '13/11/2025', groupe: 'EMPREINTE', lieu: 'Montpellier — Secret Place 🇫🇷' },
-  { date: '22/11/2025', groupe: 'KAMI NO IKARI', lieu: 'Savigny le Temple — Charitable Fest 🇫🇷' },
-  { date: '28/11/2025', groupe: 'IANWILL', lieu: 'Lorient — Le Pit Dog 🇫🇷' },
-  { date: '05/12/2025', groupe: 'IANWILL', lieu: 'Anthony — Espace Vasarely 🇫🇷' },
-  { date: '12/12/2025', groupe: 'EMPREINTE', lieu: 'Amiens — Cité Carter 🇫🇷' },
-  { date: '12/12/2025', groupe: 'INDICIBLE', lieu: 'Amiens — Cité Carter 🇫🇷' },
-  { date: '22/01/2026', groupe: 'EMPREINTE', lieu: 'Lille — Brat Cave 🇫🇷' },
-  { date: '23/01/2026', groupe: 'IANWILL', lieu: 'Paris — La Boule Noire 🇫🇷' },
-  { date: '30/01/2026', groupe: 'IANWILL', lieu: 'Eragny — Covent Garden 🇫🇷' },
-  { date: '19/02/2026', groupe: 'EMPREINTE', lieu: 'Schaerbeek — Remifest 🇧🇪' },
-  { date: '21/03/2026', groupe: 'KAMI NO IKARI', lieu: 'Châteauroux — 9Cube5 🇫🇷' },
-  { date: '16/05/2026', groupe: 'EMPREINTE', lieu: 'Soissons — Esplanade du Mail 🇫🇷' },
-  { date: '30/05/2026', groupe: 'KAMI NO IKARI', lieu: 'Mulhouse — Noumatrouff (release party Smash Hit Combo) 🇫🇷' },
-  { date: '10/06/2026', groupe: 'IANWILL', lieu: 'Hradec Králové — Festival Rock for People 🇨🇿 (Tremplin Planetrox Europe)' },
-  { date: '22/06/2026', groupe: 'INDICIBLE', lieu: 'Les Passagers du Zinc, Besançon 🇫🇷' },
-]
-
 const testimonials = [
   {
     text: "Félix a su apprendre en très peu de temps un set de métal extrême mais surtout il a su s'approprier les morceaux pour leur donner une dimension incroyable. C'est un plaisir de bosser et d'être sur scène avec lui aussi bien professionnellement que humainement.",
@@ -541,6 +480,7 @@ const testimonials = [
 export default function EpkFeuilletteePage() {
   const [slide, setSlide] = useState(0)
   const [showAllDates, setShowAllDates] = useState(false)
+  const [dates, setDates] = useState([])
   const next = useCallback(() => setSlide(s => (s + 1) % photos.length), [])
   const prev = useCallback(() => setSlide(s => (s - 1 + photos.length) % photos.length), [])
 
@@ -548,6 +488,11 @@ export default function EpkFeuilletteePage() {
     const t = setInterval(next, 4000)
     return () => clearInterval(t)
   }, [next])
+
+  useEffect(() => {
+    supabase.from('epk_dates').select('*').eq('artist_id', FELIX_ARTIST_ID).order('sort_order')
+      .then(({ data }) => setDates((data || []).map(d => ({ date: d.date_str, groupe: d.groupe, lieu: d.lieu }))))
+  }, [])
 
   return (
     <FanzineWrap>

@@ -4,47 +4,31 @@ import { useNavigate, Link } from 'react-router-dom'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
+import { supabase } from '../lib/supabase'
 
 const bubblePulse = keyframes`
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 `
 
-const slides = [
-  {
-    bg: '/Cover_flower.jpg',
-    bgPos: 'center 70%',
-    label: '★ Nouveau single',
-    band: 'Akapov',
-    title: ['Flowers,', 'Wine and', 'Candles'],
-    date: 'Disponible maintenant',
-    btn: '→ Voir le clip',
-    to: 'https://www.youtube.com/watch?v=_P4slDLNp-Q',
-    external: true,
-  },
-  {
-    bg: '/cover-vertigo.jpg',
-    bgPos: 'center center',
-    label: '★ Nouvel EP',
-    band: 'Empreinte',
-    title: ['Vertigo'],
-    date: 'Disponible maintenant',
-    btn: '→ Écouter',
-    to: 'https://bfan.link/vertigo-18',
-    external: true,
-  },
-  {
-    bg: '/cover-melted.jpg',
-    bgPos: 'center center',
-    label: '★ Single',
-    band: 'Indicible',
-    title: ['Melted'],
-    date: 'Disponible maintenant',
-    btn: '→ Écouter',
-    to: '/artiste/indicible',
-    external: false,
-  },
+const FALLBACK_SLIDES = [
+  { bg: '/cover-vertigo.jpg', bgPos: 'center center', label: '★ Nouvel EP',      band: 'Empreinte', title: ['Vertigo'],                          date: 'Disponible maintenant', btn: '→ Écouter',      to: 'https://bfan.link/vertigo-18',                external: true },
+  { bg: '/cover-melted.jpg',  bgPos: 'center center', label: '★ Single',         band: 'Indicible', title: ['Melted'],                           date: 'Disponible maintenant', btn: '→ Écouter',      to: '/artiste/indicible',                          external: false },
 ]
+
+function dbSlideToSlide(s) {
+  return {
+    bg: s.bg_url,
+    bgPos: s.bg_pos || 'center center',
+    label: s.label || '',
+    band: s.band || '',
+    title: (s.title || '').split('\\n'),
+    date: s.date_text || '',
+    btn: s.btn_text || '→',
+    to: s.url,
+    external: s.external,
+  }
+}
 
 const Screen = styled.div`
   display: grid;
@@ -266,9 +250,15 @@ const SlideDot = styled.button`
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const [slides, setSlides] = useState(FALLBACK_SLIDES)
   const [current, setCurrent] = useState(0)
 
-  const next = useCallback(() => setCurrent(s => (s + 1) % slides.length), [])
+  useEffect(() => {
+    supabase.from('homepage_slides').select('*').eq('active', true).order('sort_order')
+      .then(({ data }) => { if (data?.length) setSlides(data.map(dbSlideToSlide)) })
+  }, [])
+
+  const next = useCallback(() => setCurrent(s => (s + 1) % slides.length), [slides.length])
 
   useEffect(() => {
     const t = setInterval(next, 5000)

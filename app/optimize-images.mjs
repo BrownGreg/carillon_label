@@ -7,14 +7,12 @@ const PUBLIC = './public'
 const targets = [
   // Photos artistes — max 1400px large, qualité 82
   { file: 'artist-empreinte.png', width: 1400, quality: 82 },
-  { file: 'artist-akapov.png',    width: 1400, quality: 82 },
   { file: 'artist-indicible.jpg', width: 1400, quality: 82 },
   { file: 'artist-feuillette.jpg',width: 1400, quality: 82 },
   // Photos de sections — max 1600px
   { file: 'apropos.png',          width: 1600, quality: 82 },
   { file: 'coprod.png',           width: 1600, quality: 82 },
   { file: 'edition.png',          width: 1600, quality: 82 },
-  { file: 'Cover_flower.jpg',     width: 1600, quality: 85 },
   // Logo
   { file: 'logo-fx.png',          width: 800,  quality: 90 },
   // Covers discographie — max 600px

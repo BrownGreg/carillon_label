@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
+import { supabase } from '../lib/supabase'
+import { rosterCountLabel, ROSTER_PAGE_DEFAULTS } from '../lib/roster'
 
 const Header = styled.div`
   padding: 40px 40px 32px;
@@ -39,6 +41,13 @@ const HeaderSub = styled.div`
   letter-spacing: 2px;
   margin-top: 12px;
   text-transform: uppercase;
+`
+
+const HeaderTagline = styled.div`
+  font-family: ${fonts.body};
+  font-size: 15px;
+  font-style: italic;
+  margin-top: 8px;
 `
 
 const Grid = styled.div`
@@ -162,17 +171,6 @@ const ArtistTag = styled.div`
   text-transform: uppercase;
 `
 
-const ArtistArrow = styled.div`
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  font-family: ${fonts.display};
-  font-size: 28px;
-  color: ${colors.paper};
-  opacity: 0.5;
-  z-index: 2;
-`
-
 const Divider = styled.div`
   background: ${colors.ink};
   color: ${colors.paper};
@@ -264,41 +262,40 @@ const Toast = styled.div`
   white-space: nowrap;
 `
 
-const roster = [
-  {
-    num: '01',
-    name: 'EMPREINTE',
-    tag: 'Modern Metal',
-    photo: '/epk/empreinte-pic1.jpg',
-    focus: 'center 40%',
-    to: '/artiste/empreinte',
-  },
-  {
-    num: '02',
-    name: 'INDICIBLE',
-    tag: 'Death · Groove · Slam',
-    photo: '/artist-indicible.jpg',
-    to: '/artiste/indicible',
-  },
-  {
-    num: '03',
-    name: 'AKAPOV',
-    tag: 'Shoegaze Nu Metal',
-    photo: '/artist-akapov.jpg',
-    focus: 'center 20%',
-    to: '/artiste/akapov',
-  },
-  {
-    num: '04',
-    name: 'F. FEUILLETTE',
-    tag: 'Batteur · Session',
-    photo: '/artist-feuillette.jpg',
-    to: '/epk/felix-feuillette',
-  },
+const FALLBACK_ROSTER = [
+  { num: '01', name: 'EMPREINTE',   tag: 'Modern Metal',          photo: '/epk/empreinte-pic1.jpg', focus: 'center 40%', to: '/artiste/empreinte', kind: 'groupe' },
+  { num: '02', name: 'INDICIBLE',   tag: 'Death · Groove · Slam', photo: '/artist-indicible.jpg',   to: '/artiste/indicible', kind: 'groupe' },
+  { num: '03', name: 'F. FEUILLETTE', tag: 'Batteur · Session',  photo: '/artist-feuillette.jpg',  to: '/epk/felix-feuillette', kind: 'artiste' },
 ]
 
+function artistToCard(a) {
+  const to = a.has_artist_page ? `/artiste/${a.slug}` : (a.has_epk ? `/epk/${a.slug}` : null)
+  return {
+    num: a.roster_num,
+    name: a.name,
+    tag: a.tag,
+    photo: a.photo_url,
+    focus: a.photo_focus,
+    kind: a.kind,
+    to,
+    comingSoon: a.status === 'coming_soon' || !to,
+  }
+}
+
 export default function RosterPage() {
+  const [roster, setRoster] = useState(null)
   const [toast, setToast] = useState(false)
+  const [header, setHeader] = useState(ROSTER_PAGE_DEFAULTS)
+
+  useEffect(() => {
+    supabase.from('artists').select('*').order('sort_order')
+      .then(({ data }) => setRoster(data?.length ? data.map(artistToCard) : FALLBACK_ROSTER))
+    supabase.from('roster_page').select('*').limit(1).maybeSingle()
+      .then(({ data }) => { if (data) setHeader({ ...ROSTER_PAGE_DEFAULTS, ...data }) })
+  }, [])
+
+  const countText = header.count_text?.trim() || (roster ? rosterCountLabel(roster) : '')
+  const subLine = [countText, header.styles?.trim()].filter(Boolean).join(' · ')
 
   useEffect(() => {
     if (!toast) return
@@ -308,33 +305,35 @@ export default function RosterPage() {
 
   return (
     <FanzineWrap>
-      <SEO title="Roster" description="Découvrez les artistes du label Carillon : Empreinte, Indicible, Akapov, F. Feuillette. Metalcore, Death Metal, Shoegaze Nu Metal." path="/roster" />
+      <SEO title="Roster" description="Découvrez les artistes du label Carillon : Empreinte, Indicible, F. Feuillette. Metalcore, Death Metal." path="/roster" />
       <Header>
         <HeaderLabel>▼ Nos artistes ▼</HeaderLabel>
         <HeaderTitle>ROSTER</HeaderTitle>
-        <HeaderSub>3 groupes + 1 artiste · Metalcore / Death / Hardcore / Shoegaze Nu Metal</HeaderSub>
+        {subLine && <HeaderSub>{subLine}</HeaderSub>}
+        {header.tagline?.trim() && <HeaderTagline>{header.tagline}</HeaderTagline>}
       </Header>
 
-<Grid>
-        {roster.map((artist) => {
-          const inner = <>
-            {artist.photo
-              ? <ArtistPhoto src={artist.photo} alt={artist.name} $focus={artist.focus} />
-              : <ArtistPhotoBg>{artist.name[0]}</ArtistPhotoBg>
-            }
-            <ArtistOverlay />
-            <ArtistArrow>→</ArtistArrow>
-            <ArtistInfo>
-              <ArtistNum>{artist.num} //</ArtistNum>
-              <ArtistName>{artist.name}</ArtistName>
-              <ArtistTag>{artist.tag}</ArtistTag>
-            </ArtistInfo>
-          </>
-          return artist.comingSoon
-            ? <ArtistCardDiv key={artist.num} onClick={() => setToast(true)}>{inner}</ArtistCardDiv>
-            : <ArtistCard key={artist.num} to={artist.to}>{inner}</ArtistCard>
-        })}
-      </Grid>
+{roster && (
+        <Grid>
+          {roster.map((artist) => {
+            const inner = <>
+              {artist.photo
+                ? <ArtistPhoto src={artist.photo} alt={artist.name} $focus={artist.focus} />
+                : <ArtistPhotoBg>{artist.name[0]}</ArtistPhotoBg>
+              }
+              <ArtistOverlay />
+              <ArtistInfo>
+                <ArtistNum>{artist.num} //</ArtistNum>
+                <ArtistName>{artist.name}</ArtistName>
+                <ArtistTag>{artist.tag}</ArtistTag>
+              </ArtistInfo>
+            </>
+            return artist.comingSoon
+              ? <ArtistCardDiv key={artist.num} onClick={() => setToast(true)}>{inner}</ArtistCardDiv>
+              : <ArtistCard key={artist.num} to={artist.to}>{inner}</ArtistCard>
+          })}
+        </Grid>
+      )}
       {toast && <Toast>// Page bientôt disponible</Toast>}
     </FanzineWrap>
   )

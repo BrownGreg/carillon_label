@@ -8,15 +8,13 @@ import HomePage from './pages/HomePage'
 import RosterPage from './pages/RosterPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
-import ArtistEmpreintePage from './pages/ArtistEmpreintePage'
-import ArtistIndiciblePage from './pages/ArtistIndiciblePage'
-import ReleaseAkapovPage from './pages/ReleaseAkapovPage'
-import EpkEmpreintePage from './pages/EpkEmpreintePage'
-import EpkIndiciblePage from './pages/EpkIndiciblePage'
 import EpkFeuilletteePage from './pages/EpkFeuilletteePage'
-import ArtistAkapovPage from './pages/ArtistAkapovPage'
-import EpkAkapovPage from './pages/EpkAkapovPage'
 import NotFoundPage from './pages/NotFoundPage'
+import ArtistPage from './pages/ArtistPage'
+import EpkPage from './pages/EpkPage'
+import AdminPage from './pages/admin/AdminPage'
+import AdminArtistEdit from './pages/admin/AdminArtistEdit'
+import AdminActivate from './pages/admin/AdminActivate'
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,27 +26,40 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const ADMIN_PATHS = ['/admin']
+const NO_HEADER_PATHS = ['/']
+
 function Layout() {
   const { pathname } = useLocation()
+  const isAdmin = pathname.startsWith('/admin')
+  const showHeader = !NO_HEADER_PATHS.includes(pathname) && !isAdmin
+  const showFooter = !isAdmin
+
   return (
     <>
-      {pathname !== '/' && <SiteHeader />}
+      {showHeader && <SiteHeader />}
       <Routes>
+        {/* Pages publiques */}
         <Route path="/" element={<HomePage />} />
         <Route path="/roster" element={<RosterPage />} />
         <Route path="/a-propos" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/artiste/empreinte" element={<ArtistEmpreintePage />} />
-        <Route path="/artiste/indicible" element={<ArtistIndiciblePage />} />
-        <Route path="/sortie/akapov-fwac" element={<ReleaseAkapovPage />} />
-        <Route path="/artiste/akapov" element={<ArtistAkapovPage />} />
-        <Route path="/epk/empreinte" element={<EpkEmpreintePage />} />
-        <Route path="/epk/indicible" element={<EpkIndiciblePage />} />
+
+        {/* EPK hardcodé restant (migration schema à venir : compétences, témoignages, groupe par date) */}
         <Route path="/epk/felix-feuillette" element={<EpkFeuilletteePage />} />
-        <Route path="/epk/akapov" element={<EpkAkapovPage />} />
+
+        {/* Pages dynamiques pilotées par Supabase (éditables via /admin) */}
+        <Route path="/artiste/:slug" element={<ArtistPage />} />
+        <Route path="/epk/:slug" element={<EpkPage />} />
+
+        {/* Administration */}
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/artiste/:id" element={<AdminArtistEdit />} />
+        <Route path="/admin/activer" element={<AdminActivate />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <SiteFooter />
+      {showFooter && <SiteFooter />}
     </>
   )
 }
