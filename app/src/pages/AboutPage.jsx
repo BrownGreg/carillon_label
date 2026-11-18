@@ -116,23 +116,38 @@ const SectionRule = styled.div`
 `
 
 const AProposBlock = styled.div`
-  border-bottom: 4px solid ${colors.ink};
-`
-
-const AProposPhoto = styled.div`
-  background: ${colors.ink} url('${({ $src }) => $src}') center/cover no-repeat;
-  min-height: clamp(320px, 50vw, 560px);
-`
-
-const AProposContent = styled.div`
-  padding: 40px;
-  background: ${colors.paper};
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: minmax(280px, 0.8fr) 1.2fr;
+  border-bottom: 4px solid ${colors.ink};
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+  }
+`
+
+const AProposPhoto = styled.img`
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: ${colors.ink};
+  border-right: 4px solid ${colors.ink};
+
+  @media (max-width: 768px) {
+    border-right: none;
+    border-bottom: 4px solid ${colors.ink};
+  }
+`
+
+const AProposContent = styled.div`
+  padding: 48px 40px;
+  background: ${colors.paper};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+
+  @media (max-width: 768px) {
     gap: 24px;
     padding: 28px 20px;
   }
@@ -142,12 +157,20 @@ const AProposText = styled.div`
   font-family: ${fonts.body};
   font-size: 15px;
   line-height: 1.65;
+
+  p + p {
+    margin-top: 14px;
+  }
 `
 
 const AProposMeta = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const MetaItem = styled.div`
@@ -240,8 +263,13 @@ export default function AboutPage() {
       </SectionBlock>
 
       <AProposBlock>
-        <AProposPhoto $src={c.apropos_photo} />
+        <AProposPhoto src={c.apropos_photo} alt="Carillon — à propos" loading="lazy" />
         <AProposContent>
+          <div>
+            <SectionNum>03 // Qui sommes-nous</SectionNum>
+            <SectionTitle>LE LABEL</SectionTitle>
+            <SectionRule style={{ margin: '18px 0 0' }} />
+          </div>
           <AProposText>{formatParagraphs(c.apropos_text)}</AProposText>
           <AProposMeta>
             <MetaItem>
