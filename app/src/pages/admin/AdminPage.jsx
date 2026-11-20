@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { colors, fonts } from '../../theme'
 import MediaUpload from '../../components/admin/MediaUpload'
 import { rosterCountLabel, ROSTER_PAGE_DEFAULTS } from '../../lib/roster'
+import { CONTACT_PAGE_DEFAULTS } from '../../lib/contact'
 
 /* ── Design admin — fonctionnel, cohérent avec la charte ── */
 
@@ -534,6 +535,91 @@ function AboutTab() {
   )
 }
 
+function ContactTab() {
+  const [row, setRow] = useState(null)
+  const [draft, setDraft] = useState(CONTACT_PAGE_DEFAULTS)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    supabase.from('contact_page').select('*').limit(1).maybeSingle()
+      .then(({ data }) => {
+        if (data) { setRow(data); setDraft({ ...CONTACT_PAGE_DEFAULTS, ...data }) }
+        setLoading(false)
+      })
+  }, [])
+
+  const set = (k, v) => { setDraft(prev => ({ ...prev, [k]: v })); setSaved(false) }
+
+  async function save() {
+    setSaving(true); setError('')
+    const payload = {
+      hero_photo: draft.hero_photo, hero_focus: draft.hero_focus,
+      hero_focus_mobile: draft.hero_focus_mobile, hero_zoom_mobile: draft.hero_zoom_mobile,
+    }
+    const res = row
+      ? await supabase.from('contact_page').update(payload).eq('id', row.id)
+      : await supabase.from('contact_page').insert(payload).select().single()
+    if (res.error) setError(res.error.message)
+    else { if (!row) setRow(res.data); setSaved(true) }
+    setSaving(false)
+  }
+
+  if (loading) return <div style={{ padding: 32, fontStyle: 'italic', color: colors.darkGrey }}>Chargement...</div>
+
+  const d = draft
+  const previewBox = (w, h, focus, zoom) => (
+    <div style={{
+      width: w, height: h, border: `2px solid ${colors.ink}`, flexShrink: 0,
+      background: `${colors.ink} url("${d.hero_photo}") ${focus} / ${zoom ? '200% auto' : 'cover'} no-repeat`,
+    }} />
+  )
+
+  return (
+    <div>
+      <PageTitle>CONTACT</PageTitle>
+      <PageSub>Bandeau « Écris-nous » en haut de la page /contact</PageSub>
+
+      <SlideForm>
+        <FormGrid>
+          <div>
+            <FLabel>Photo du bandeau</FLabel>
+            <MediaUpload value={d.hero_photo} onChange={v => set('hero_photo', v)} folder="contact" />
+          </div>
+          <div>
+            <FLabel>Cadrage ordinateur</FLabel>
+            <FInput value={d.hero_focus} placeholder="center 10%" onChange={e => set('hero_focus', e.target.value)} />
+            <div style={{ fontSize: 11, color: colors.darkGrey, margin: '4px 0 12px' }}>Ex : center top, center 10%, center 50%, 30% 60%</div>
+
+            <FLabel>Cadrage mobile / tablette</FLabel>
+            <FInput value={d.hero_focus_mobile} placeholder="right top" onChange={e => set('hero_focus_mobile', e.target.value)} />
+            <FCheckRow style={{ marginTop: 8 }}>
+              <input type="checkbox" checked={!!d.hero_zoom_mobile} onChange={e => set('hero_zoom_mobile', e.target.checked)} />
+              Zoom x2 sur mobile / tablette
+            </FCheckRow>
+          </div>
+        </FormGrid>
+
+        <div style={{ marginTop: 20 }}>
+          <FLabel>Aperçu du cadrage</FLabel>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end', flexWrap: 'wrap', marginTop: 6 }}>
+            <div>{previewBox(360, 90, d.hero_focus, false)}<div style={{ fontSize: 10, marginTop: 4 }}>Ordinateur</div></div>
+            <div>{previewBox(120, 90, d.hero_focus_mobile, d.hero_zoom_mobile)}<div style={{ fontSize: 10, marginTop: 4 }}>Mobile</div></div>
+          </div>
+        </div>
+      </SlideForm>
+
+      <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <FAddBtn onClick={save} disabled={saving}>{saving ? '// Enregistrement...' : 'Enregistrer'}</FAddBtn>
+        {saved && <span style={{ fontFamily: fonts.heading, fontSize: 11, letterSpacing: 2, color: '#155724' }}>✓ Enregistré</span>}
+        {error && <span style={{ fontFamily: fonts.body, fontSize: 12, color: '#721c24' }}>{error}</span>}
+      </div>
+    </div>
+  )
+}
+
 function RosterHeaderForm({ artists }) {
   const [row, setRow] = useState(null)
   const [draft, setDraft] = useState(ROSTER_PAGE_DEFAULTS)
@@ -644,11 +730,13 @@ export default function AdminPage() {
         <NavTab $active={tab === 'roster'} onClick={() => setTab('roster')}>Roster</NavTab>
         <NavTab $active={tab === 'homepage'} onClick={() => setTab('homepage')}>Homepage</NavTab>
         <NavTab $active={tab === 'about'} onClick={() => setTab('about')}>À propos</NavTab>
+        <NavTab $active={tab === 'contact'} onClick={() => setTab('contact')}>Contact</NavTab>
       </NavTabs>
 
       <Content>
         {tab === 'homepage' && <SlidesTab />}
         {tab === 'about' && <AboutTab />}
+        {tab === 'contact' && <ContactTab />}
 
         {tab === 'roster' && <>
         <PageTitle>ROSTER</PageTitle>

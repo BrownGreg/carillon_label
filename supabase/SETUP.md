@@ -90,3 +90,4 @@ sont ré-exécutables sans risque : ils ne modifient jamais une donnée existant
 | 5 | `epk_dates_groupe.sql` | ✅ appliqué — **ne plus relancer** (dupliquerait les dates) |
 | 6 | `about_page.sql` | ⏳ à passer |
 | 7 | `roster_header.sql` | ⏳ à passer **avant** de déployer le front (sinon la sauvegarde d'un artiste échoue : colonne `kind` manquante) |
+| 8 | `contact_page.sql` | ⏳ à passer (bandeau « Écris-nous » éditable — sans lui, le site garde la photo par défaut) |

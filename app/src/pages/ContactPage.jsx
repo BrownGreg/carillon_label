@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { FanzineWrap } from '../components/FanzineWrap'
 import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
+import { supabase } from '../lib/supabase'
+import { CONTACT_PAGE_DEFAULTS } from '../lib/contact'
 
 const Hero = styled.div`
-  background: ${colors.ink} url('/apropos-2026.jpg') center 10%/cover no-repeat;
+  background: ${colors.ink} url("${({ $photo }) => $photo}") ${({ $focus }) => $focus}/cover no-repeat;
   position: relative;
   padding: 56px 40px 48px;
   border-bottom: 4px solid ${colors.ink};
@@ -18,11 +20,10 @@ const Hero = styled.div`
     background: linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.2) 100%);
   }
 
-  /* Le collage contient le texte "A PROPOS" en son centre :
-     sur écran étroit on zoome sur la photo en haut à droite pour l'éviter */
+  /* Cadrage mobile / tablette réglable dans l'admin (onglet Contact) */
   @media (max-width: 768px) {
-    background-size: 200% auto;
-    background-position: right top;
+    background-size: ${({ $zoomMobile }) => $zoomMobile ? '200% auto' : 'cover'};
+    background-position: ${({ $focusMobile }) => $focusMobile};
   }
 
   @media (max-width: 640px) {
@@ -336,6 +337,12 @@ const FORMSPREE_ID = 'mdavvjkk'
 export default function ContactPage() {
   const [status, setStatus] = useState('idle')
   const [fields, setFields] = useState({ nom: '', email: '', objet: '', message: '' })
+  const [hero, setHero] = useState(CONTACT_PAGE_DEFAULTS)
+
+  useEffect(() => {
+    supabase.from('contact_page').select('*').limit(1).maybeSingle()
+      .then(({ data }) => { if (data) setHero({ ...CONTACT_PAGE_DEFAULTS, ...data }) })
+  }, [])
 
   const set = (k) => (e) => setFields(f => ({ ...f, [k]: e.target.value }))
 
@@ -357,7 +364,12 @@ export default function ContactPage() {
   return (
     <FanzineWrap>
       <SEO title="Contact" description="Contactez Carillon pour vos demandes presse, management, booking ou coproduction. Email : contact@studiocarillon.fr" path="/contact" />
-      <Hero>
+      <Hero
+        $photo={hero.hero_photo || CONTACT_PAGE_DEFAULTS.hero_photo}
+        $focus={hero.hero_focus || CONTACT_PAGE_DEFAULTS.hero_focus}
+        $focusMobile={hero.hero_focus_mobile || CONTACT_PAGE_DEFAULTS.hero_focus_mobile}
+        $zoomMobile={hero.hero_zoom_mobile}
+      >
         <HeroInner>
           <HeroTitle>ÉCRIS-NOUS</HeroTitle>
           <HeroText>
