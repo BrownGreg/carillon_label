@@ -5,7 +5,7 @@ import SEO from '../components/SEO'
 import { colors, fonts } from '../theme'
 
 const Hero = styled.div`
-  background: ${colors.ink} url('/apropos.png') center 10%/cover no-repeat;
+  background: ${colors.ink} url('/apropos-2026.jpg') center 10%/cover no-repeat;
   position: relative;
   padding: 56px 40px 48px;
   border-bottom: 4px solid ${colors.ink};
@@ -16,6 +16,13 @@ const Hero = styled.div`
     position: absolute;
     inset: 0;
     background: linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.2) 100%);
+  }
+
+  /* Le collage contient le texte "A PROPOS" en son centre :
+     sur écran étroit on zoome sur la photo en haut à droite pour l'éviter */
+  @media (max-width: 768px) {
+    background-size: 200% auto;
+    background-position: right top;
   }
 
   @media (max-width: 640px) {
